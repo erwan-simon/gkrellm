@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 14:22:34 2017 erwan
-// Last update Sat Jan 21 17:23:37 2017 antoine
+// Last update Sat Jan 21 17:54:34 2017 erwan
 //
 
 #include <sys/utsname.h>
@@ -42,7 +42,7 @@ void          User::setKernel(std::string kernel)		{this->_kernel = kernel;}
 void          User::setDate(std::string date)			{this->_date = date;}
 void          User::setTime(std::string time)			{this->_time = time;}
 
-std::string   User::getMachineName() const	{return (this->_time);}
+std::string   User::getMachineName() const	{return (this->_machineName);}
 std::string   User::getUserName() const		{return (this->_userName);}
 std::string   User::getOpSys() const		{return (this->_opSys);}
 std::string   User::getKernel() const		{return (this->_kernel);}

@@ -1,6 +1,8 @@
+#include "Infos.hpp"
 #include "textDisplay.hpp"
 
 int	main()
 {
-  textDisplay();
+  Infos *infos = new Infos;
+  textDisplay(*infos);
 }

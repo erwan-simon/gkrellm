@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 13:15:51 2017 erwan
-// Last update Sat Jan 21 16:17:43 2017 erwan
+// Last update Sat Jan 21 17:53:23 2017 erwan
 //
 
 #ifndef CORE_HPP_
@@ -22,7 +22,6 @@ public:
 
 public:
   std::string	getCPUModel() const;
-  int		getCPUFreq() const;
   int		getCoreNb() const;
   float		*getCorePercent() const;
   float		*getRam() const;
@@ -31,7 +30,6 @@ public:
   float		*getLoadAvg() const;
 
   void		setCPUModel(std::string CPUModel);
-  void		setCPUFrequ(int CPUFreq);
   void		setCoreNb(int core);
   void		setCorePercent(float *corePercent);
   void		setRam(float *ram);
@@ -41,7 +39,6 @@ public:
     
 private:
   std::string	_CPUModel; // modele du processeur
-  int		_CPUFreq; // frequence du processeur
   int		_coreNb; // nombre de core
   float		*_corePercent; // tableau contenant dans l'ordre des cores leur pourcentage d'utilisation
   float		*_ram; // tableau contenant le volume de ram utilise et le total
