@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 13:18:00 2017 erwan
-// Last update Sat Jan 21 14:35:33 2017 erwan
+// Last update Sat Jan 21 14:26:15 2017 erwan
 //
 
 #ifndef USER_HPP_
@@ -38,8 +38,8 @@ public:
 private:
   std::string	_machineName;
   std::string	_userName;
-  std::string	_opSys; // operating system
-  std::string	_kernel; // version du kernel
+  std::string	_opSys;
+  std::string	_kernel;
   std::string	_date;
   std::string	_time;
 };
