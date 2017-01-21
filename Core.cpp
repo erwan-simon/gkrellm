@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sat Jan 21 22:26:34 2017 Pierre-Emmanuel Merlier
+// Last update Sat Jan 21 22:33:52 2017 Pierre-Emmanuel Merlier
 //
 
 #include <string>
@@ -144,7 +144,7 @@ void  getNbTasksFromFile(Infos & info)
       info._core.setNbTasks(0);
     }
 }
-#include <iostream>
+
 void getCorePercentFromFile(Infos & info)
 {
   int i, j = 0, n = 0, jump = 0;
@@ -178,17 +178,18 @@ void getCorePercentFromFile(Infos & info)
 	  i = line.find("cpu");
 	  if (i != -1 && jump != 0)
 	    {
-	      while (i < str.length())
+	      while (i < line.length())
 		{
-		  while (str[i] >= '0' && str[i] <= '9')
-		    nb += str[i++];
-		  stock += std::stof(nb);
+		  while (line[i] >= '0' && line[i] <= '9')
+		    nb += line[i++];
 		  i++;
 		}
-	      ret[n++] = stock * 100 / (mem_size / 1024);
+	      stock += std::stof(nb);
+	      ret[n++] = stock * 100 / (mem_size * 1024);
 	    }
 	  jump = 1;
 	  stock = 0.0;
+	  nb = "";
 	}
     }
   else
