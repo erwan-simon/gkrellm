@@ -32,7 +32,7 @@ void	basicTemplate(Infos const &infos)
   for (i = 1; i < yMax; i++)
     mvprintw(11, i, " ");
   for (i = 1; i < 12; i++)
-    mvprintw(i, yMax - 28, " ");
+    mvprintw(i, yMax - 33, " ");
   for (i = 1; i < 25; i++)
     mvprintw(4, i, " ");
   for (i = 1; i < 4; i++)
@@ -47,13 +47,13 @@ void	basicTemplate(Infos const &infos)
 	mvprintw(a + 2, 27, "%s[", (a == infos._core.getCoreNb() + 1 ? "Ram" : "Swp"));
       else
 	mvprintw(a + 2, 27, "%d  [", a + 1);
-      mvprintw(a + 2, yMax - 30, "]");
+      mvprintw(a + 2, yMax - 35, "]");
       a++;
     }
-  mvprintw(2, yMax - 26, "OS: ");
-  mvprintw(4, yMax - 26, "Kernel: ");
-  mvprintw(6, yMax - 26, "CPU: ");
-  mvprintw(8, yMax - 26, "Active tasks: ");
+  mvprintw(2, yMax - 31, "OS: ");
+  mvprintw(4, yMax - 31, "Kernel: ");
+  mvprintw(6, yMax - 31, "CPU: ");
+  mvprintw(8, yMax - 31, "Active tasks: ");
   attroff(COLOR_PAIR(2));
 }
 
@@ -73,8 +73,8 @@ void	user(Infos const &infos)
   mvprintw(8, 12, "%s", infos._user.getMachineName().c_str());
   mvprintw(2, 2, "%s", infos._user.getTime().c_str());
   mvprintw(2, 14, "%s", infos._user.getDate().c_str());
-  mvprintw(2, yMax - 22, "%s", infos._user.getOpSys().c_str());
-  mvprintw(4, yMax - 20, "%s", infos._user.getKernel().c_str());
+  mvprintw(2, yMax - 27, "%s", infos._user.getOpSys().c_str());
+  mvprintw(4, yMax - 23, "%s", infos._user.getKernel().c_str());
   attroff(COLOR_PAIR(0));
 }
 
@@ -85,8 +85,8 @@ void	core(Infos const &infos)
 
   getmaxyx(stdscr, xMax, yMax);
   attron(COLOR_PAIR(0));
-  mvprintw(6, yMax - 22, "%s", infos._core.getCPUModel().c_str());
-  mvprintw(8, yMax - 10, "%d", infos._core.getNbTasks());
+  mvprintw(6, yMax - 27, "%s", infos._core.getCPUModel().c_str());
+  mvprintw(8, yMax - 17, "%d", infos._core.getCoreNb());
   attroff(COLOR_PAIR(0));
 }
 
