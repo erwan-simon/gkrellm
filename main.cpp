@@ -5,7 +5,7 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sat Jan 21 19:53:10 2017 antoine
-// Last update Sat Jan 21 21:02:46 2017 antoine
+// Last update Sat Jan 21 21:20:43 2017 erwan
 //
 
 #include <iostream>
@@ -53,5 +53,6 @@ int		main(int ac, char ** av, char **env)
       //   graphicDisplay(*infos);
     else
       help_mode();
+  delete infos;
   return (0);
 }
