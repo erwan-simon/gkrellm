@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sat Jan 21 22:33:52 2017 Pierre-Emmanuel Merlier
+// Last update Sat Jan 21 22:35:35 2017 Pierre-Emmanuel Merlier
 //
 
 #include <string>
@@ -145,6 +145,7 @@ void  getNbTasksFromFile(Infos & info)
     }
 }
 
+#include <iostream>
 void getCorePercentFromFile(Infos & info)
 {
   int i, j = 0, n = 0, jump = 0;
@@ -186,6 +187,7 @@ void getCorePercentFromFile(Infos & info)
 		}
 	      stock += std::stof(nb);
 	      ret[n++] = stock * 100 / (mem_size * 1024);
+	      std::cout << ret[n - 1] << std::endl;
 	    }
 	  jump = 1;
 	  stock = 0.0;
