@@ -5,11 +5,16 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 14:22:34 2017 erwan
-// Last update Sat Jan 21 15:17:27 2017 erwan
+// Last update Sat Jan 21 16:37:56 2017 antoine
 //
 
+#include <sys/utsname.h>
+#include <iostream>
+#include <fstream>
 #include <string>
+
 #include "User.hpp"
+#include "Infos.hpp"
 
 User::User()
 {
@@ -44,3 +49,69 @@ std::string   User::getKernel() const		{return (this->_kernel);}
 std::string   User::getDate() const		{return (this->_date);}
 std::string   User::getTime() const		{return (this->_time);}
 
+void	init_User(Infos &_info)
+{
+  sys_get_hostname(_info);
+  sys_get_kernel(_info);
+  sys_get_time(_info);
+}
+
+void    sys_get_hostname(Infos &_info)
+{
+  std::string   _src = "/proc/sys/kernel/hostname";
+  std::ifstream _file(_src.c_str(), std::ios::in);
+  std::string   _hostname = "ERROR";;
+
+  if (_file)
+    {
+      if (!_file.eof())
+	std::getline(_file, _hostname);
+    }
+  _file.close();
+  _info._user.setMachineName(_hostname);
+  // std::cout << _hostname << std::endl;
+}
+
+void            sys_get_kernel(Infos &_info)
+{
+  struct utsname        unameData;
+  std::string           k_name = "ERROR";
+  std::string           k_vers = "ERROR";
+
+  if(uname(&unameData) != -1)
+    {
+      k_name = unameData.sysname;
+      k_vers = unameData.version;
+    }
+  _info._user.setOpSys(k_name);
+  _info._user.setKernel(k_vers);
+  // std::cout<<k_name<<std::endl;
+  // std::cout<<k_vers<<std::endl;
+}
+
+void    sys_get_time(Infos &_info)
+{
+
+  std::string   _src = "/proc/driver/rtc";
+  std::ifstream _file(_src.c_str(), std::ios::in);
+  std::string   _line;
+  std::string _time = "ERROR";
+  std::string _day = "ERROR";
+
+  if (_file)
+    {
+      while(!_file.eof())
+	{
+	  std::getline(_file, _line);
+	  if (_line.find("rtc_time") != _line.npos)
+	    _time = _line.substr (11,19);
+	  if (_line.find("rtc_date") != _line.npos)
+	    _day = _line.substr (11,21);
+	}
+    }
+  _file.close();
+  _info._user.setTime(_time);
+  _info._user.setDate(_day);
+  // std::cout <<  << std::endl;
+  // std::cout << << std::endl;
+}
