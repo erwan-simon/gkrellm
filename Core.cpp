@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sat Jan 21 22:36:23 2017 Pierre-Emmanuel Merlier
+// Last update Sat Jan 21 22:42:10 2017 Pierre-Emmanuel Merlier
 //
 
 #include <string>
@@ -40,7 +40,7 @@ Core&	Core::operator=(Core const &other)
 /***** GETTER *****/
 std::string Core::getCPUModel() const			{return (this->_CPUModel);}
 int	Core::getCoreNb() const				{return (this->_coreNb);}
-float	*Core::getCorePercent() const			{return (this->_corePercent);}
+long long	*Core::getCorePercent() const		{return (this->_corePercent);}
 float	*Core::getRam() const				{return (this->_ram);}
 float	*Core::getSwap() const				{return (this->_swap);}
 int	Core::getNbTasks() const			{return (this->_nbTasks);}
@@ -49,7 +49,7 @@ float	*Core::getLoadAvg() const			{return (this->_loadAvg);}
 /***** SETTER *****/
 void	Core::setCPUModel(std::string model)		{this->_CPUModel = model;}
 void	Core::setCoreNb(int coreNb)			{this->_coreNb = coreNb;}
-void	Core::setCorePercent(float *corePercent)	{this->_corePercent = corePercent;}
+void	Core::setCorePercent(long long *corePercent)	{this->_corePercent = corePercent;}
 void	Core::setRam(float *ram)			{this->_ram = ram;}
 void	Core::setSwap(float *swap)			{this->_swap = swap;}
 void	Core::setNbTasks(int tasksNb)			{this->_nbTasks = tasksNb;}
@@ -145,16 +145,15 @@ void  getNbTasksFromFile(Infos & info)
     }
 }
 
-#include <iostream>
 void getCorePercentFromFile(Infos & info)
 {
   int i, j = 0, n = 0, jump = 0;
-  int mem_size;
+  long mem_size;
   std::string src = PATH + "stat";
   std::string src2 = PATH + "cpuinfo";
   std::string line, str, nb;
-  float stock = 0.0;
-  float ret[4] = {0.0, 0.0, 0.0, 0.0};
+  long long stock = 0;
+  long long ret[4] = {0, 0, 0, 0};
   std::ifstream file(src.c_str(), std::ios::in);
   std::ifstream file2(src2.c_str(), std::ios::in);
 
@@ -189,7 +188,7 @@ void getCorePercentFromFile(Infos & info)
 	      ret[n++] = stock * 100 / (mem_size * 1024);
 	    }
 	  jump = 1;
-	  stock = 0.0;
+	  stock = 0;
 	  nb = "";
 	}
       info._core.setCorePercent(ret);
