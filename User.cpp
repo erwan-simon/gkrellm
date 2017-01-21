@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 14:22:34 2017 erwan
-// Last update Sat Jan 21 14:50:49 2017 antoine
+// Last update Sat Jan 21 15:17:27 2017 erwan
 //
 
 #include <string>
@@ -14,8 +14,6 @@
 User::User()
 {
 }
-
-Usera
 
 User::~User()
 {
