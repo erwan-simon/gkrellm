@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 13:18:00 2017 erwan
-// Last update Sat Jan 21 16:42:04 2017 erwan
+// Last update Sat Jan 21 19:25:23 2017 erwan
 //
 
 #ifndef USER_HPP_

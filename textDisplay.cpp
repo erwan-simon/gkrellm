@@ -8,6 +8,7 @@
 void	updateInfos(Infos &infos)
 {
   init_User(infos);
+  // init_Core(infos);
   infos._core.setCoreNb(4);
 }
 
@@ -22,34 +23,37 @@ void	basicTemplate(Infos const &infos)
   attron(COLOR_PAIR(1));
   for (i = 0; i < yMax; i++)
     mvprintw(0, i, " ");
-  for (i = 0; i < 10; i++)
+  for (i = 0; i < 12; i++)
     mvprintw(i, 0, " ");
-  for (i = 0; i < 10; i++)
+  for (i = 0; i < 12; i++)
     mvprintw(i, yMax - 1, " ");
-  for (i = 1; i < 9; i++)
+  for (i = 1; i < 12; i++)
     mvprintw(i, 25, " ");
   for (i = 1; i < yMax; i++)
-    mvprintw(9, i, " ");
-  for (i = 1; i < 9; i++)
-    mvprintw(i, (yMax / 2) + 23, " ");
+    mvprintw(11, i, " ");
+  for (i = 1; i < 12; i++)
+    mvprintw(i, yMax - 28, " ");
   for (i = 1; i < 25; i++)
-    mvprintw(3, i, " ");
-  for (i = 1; i < 25; i++)
-    mvprintw(1, i, " ");
-  mvprintw(2, 11, " ");
+    mvprintw(4, i, " ");
+  for (i = 1; i < 4; i++)
+    mvprintw(i, 12, " ");
   attroff(COLOR_PAIR(1));
   attron(COLOR_PAIR(2));
-  mvprintw(5, 2, "UserName: ");
-  mvprintw(7, 2, "PCName: ");
+  mvprintw(6, 2, "UserName: ");
+  mvprintw(8, 2, "PCName: ");
   while (a < infos._core.getCoreNb() + 2)
     {
       if (a >= infos._core.getCoreNb())
 	mvprintw(a + 2, 27, "%s[", (a == infos._core.getCoreNb() + 1 ? "Ram" : "Swp"));
       else
 	mvprintw(a + 2, 27, "%d  [", a + 1);
-      mvprintw(a + 2, (yMax / 2) + 21, "]");
+      mvprintw(a + 2, yMax - 30, "]");
       a++;
     }
+  mvprintw(2, yMax - 26, "OS: ");
+  mvprintw(4, yMax - 26, "Kernel: ");
+  mvprintw(6, yMax - 26, "CPU: ");
+  mvprintw(8, yMax - 26, "Active tasks: ");
   attroff(COLOR_PAIR(2));
 }
 
@@ -60,10 +64,29 @@ void	gauge(Infos const &infos)
 
 void	user(Infos const &infos)
 {
+  int	xMax;
+  int	yMax;
+
+  getmaxyx(stdscr, xMax, yMax);
   attron(COLOR_PAIR(0));
-  mvprintw(5, 12, "%s", infos._user.getUserName().c_str());
-  mvprintw(7, 12, "%s", infos._user.getMachineName().c_str());
-  mvprintw();
+  mvprintw(6, 12, "%s", infos._user.getUserName().c_str());
+  mvprintw(8, 12, "%s", infos._user.getMachineName().c_str());
+  mvprintw(2, 2, "%s", infos._user.getTime().c_str());
+  mvprintw(2, 14, "%s", infos._user.getDate().c_str());
+  mvprintw(2, yMax - 22, "%s", infos._user.getOpSys().c_str());
+  mvprintw(4, yMax - 22, "%s", infos._user.getKernel().c_str());
+  attroff(COLOR_PAIR(0));
+}
+
+void	core(Infos const &infos)
+{
+  int	xMax;
+  int	yMax;
+
+  getmaxyx(stdscr, xMax, yMax);
+  attron(COLOR_PAIR(0));
+  mvprintw(6, yMax - 22, "%s", infos._core.getCPUModel().c_str());
+  mvprintw(8, yMax - 22, "%s", infos._core.getTasksNb().c_str());
   attroff(COLOR_PAIR(0));
 }
 
@@ -95,9 +118,9 @@ void		textDisplay(Infos &infos)
 	  size[1] = size[3];
 	}
       user(infos);
+      core(infos);
       gauge(infos);
       refresh();
-      getch();
     }
   curs_set(1);
   endwin();

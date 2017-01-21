@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sat Jan 21 18:36:26 2017 Pierre-Emmanuel Merlier
+// Last update Sat Jan 21 19:47:41 2017 erwan
 //
 
 #include <string>
@@ -57,6 +57,8 @@ void	Core::setLoadAvg(float *loadAvg)		{this->_loadAvg = loadAvg;}
 /***** INITIALISATION *****/
 void init_Core(Infos &_info)
 {
+  float	res[2] = {0.0, 0.0};
+  
   getLoadAvgFromFile(_info);
   getCPUInfo(_info);
   struct sysinfo info;
@@ -67,11 +69,8 @@ void init_Core(Infos &_info)
     }
   else
     {
-      for (int i = 0; i < 2; i++)
-	{
-	  _info._core._ram[i] = 0;
-	  _info._core._swap[i] = 0;
-	}
+      _info._core.setRam(res);
+      _info._core.setSwap(res);
     }
 }
 
@@ -82,6 +81,8 @@ void  getLoadAvgFromFile(Infos & info)
   std::string src = PATH + "loadavg";
   std::string line, str;
   std::ifstream file(src.c_str(), std::ios::in);
+  float	res[3] = {0.0, 0.0, 0.0};
+  
   if (file)
     {
       getline(file, line);
@@ -89,7 +90,7 @@ void  getLoadAvgFromFile(Infos & info)
 	{
 	  if (line[i] == ' ')
 	    {
-	      info._core._loadAvg[j] = std::stof(str);
+	      res[j] = std::stof(str);
 	      i++;
 	      j++;
 	      str = "";
@@ -97,18 +98,16 @@ void  getLoadAvgFromFile(Infos & info)
 	  str += line[i];
 	  i++;
 	}
+      info._core.setLoadAvg(res);
     }
   else
-    {
-      for (int i = 0; i < 3; i++)
-	info._core._loadAvg[i] = 0;
-    }
+    info._core.setLoadAvg(res);
 }
 
-void Core::getCorePercentFromFile()
-{
+// void Core::getCorePercentFromFile()
+// {
   
-}
+// }
 
 std::string parsingCPU(const std::string find, const std::string end,
 		      const std::string str)
@@ -134,33 +133,39 @@ void getCPUInfo(Infos & info)
     {
       while (getline(file, line))
 	str += line;
-      info._core._CPUModel = parsingCPU("model name", "stepping", str);
-      info._core._coreNb = stoi(parsingCPU("cpu cores", "apicid", str));
+      info._core.setCPUModel(parsingCPU("model name", "stepping", str));
+      info._core.setCoreNb(std::stoi(parsingCPU("cpu cores", "apicid", str)));
     }
   else
     {
-      info._core._CPUModel = "";
-      info._core._coreNb = 0;
+      info._core.setCPUModel("");
+      info._core.setCoreNb(0);
     }
 }
 
 void getRamInfo(struct sysinfo info, Infos &_info)
 {
   float total, free, use;
+  float	res[2];
+  
   total = (float)info.totalram / (1024 * 1024 * 1024);
   free = (float)info.freeram / (1024 * 1024 * 1024);
   use = total - free;
-  _info._core._ram[0] = use;
-  _info._core._ram[1] = total;
+  res[0] = use;
+  res[1] = total;
+  _info._core.setRam(res);
 }
 
 void getSwapInfo(struct sysinfo info, Infos & _info)
 {
   float total, free, use;
+  float	res[2];
+  
   total = (float)info.totalswap / (1024 * 1024 * 1024);
   free = (float)info.freeswap / (1024 * 1024 * 1024);
   use = total - free;
-  _info._core._swap[0] = use;
-  _info._core._swap[1] = total;
+  res[0] = use;
+  res[1] = total;
+  _info._core.setSwap(res);
 }
 int main() {}

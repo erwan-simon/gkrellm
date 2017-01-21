@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 14:22:34 2017 erwan
-// Last update Sat Jan 21 17:54:34 2017 erwan
+// Last update Sat Jan 21 19:22:10 2017 erwan
 //
 
 #include <sys/utsname.h>
@@ -86,7 +86,7 @@ void            sys_get_kernel(Infos &_info)
   if(uname(&unameData) != -1)
     {
       k_name = unameData.sysname;
-      k_vers = unameData.version;
+      k_vers = unameData.release;
     }
   _info._user.setOpSys(k_name);
   _info._user.setKernel(k_vers);
