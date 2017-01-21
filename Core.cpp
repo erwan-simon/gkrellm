@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sat Jan 21 22:05:11 2017 Pierre-Emmanuel Merlier
+// Last update Sat Jan 21 22:26:34 2017 Pierre-Emmanuel Merlier
 //
 
 #include <string>
@@ -144,16 +144,15 @@ void  getNbTasksFromFile(Infos & info)
       info._core.setNbTasks(0);
     }
 }
-
+#include <iostream>
 void getCorePercentFromFile(Infos & info)
 {
-  int i, j = 0, n = 0;
+  int i, j = 0, n = 0, jump = 0;
   int mem_size;
-  unsigned int k;
   std::string src = PATH + "stat";
   std::string src2 = PATH + "cpuinfo";
   std::string line, str, nb;
-  float stock;
+  float stock = 0.0;
   float ret[4] = {0.0, 0.0, 0.0, 0.0};
   std::ifstream file(src.c_str(), std::ios::in);
   std::ifstream file2(src2.c_str(), std::ios::in);
@@ -176,33 +175,21 @@ void getCorePercentFromFile(Infos & info)
     {
       while (getline(file, line))
 	{
-	  str += line;
-	}
-      i = str.find("cpu0") + 1;
-      j = str.find("intr");
-      while (i < j)
-	{
-	  if (str[i] == 'c')
+	  i = line.find("cpu");
+	  if (i != -1 && jump != 0)
 	    {
-	      k = 0;
-	      i++;
-	      ret[n] = stock * 100 / (mem_size * 1024);
-	      n++;
-	      stock = 0.0;
-	    }
-	  if (str[i] >= '0' && str[i] <= '9')
-	    {
-	      while (str[i] >= '0' && str[i] <= '9')
+	      while (i < str.length())
 		{
-		  nb += str[i++];
+		  while (str[i] >= '0' && str[i] <= '9')
+		    nb += str[i++];
+		  stock += std::stof(nb);
+		  i++;
 		}
-	      stock += std::stof(nb);
+	      ret[n++] = stock * 100 / (mem_size / 1024);
 	    }
-	  nb = "";
-	  if (str[i] != 'c')
-	    i++;
+	  jump = 1;
+	  stock = 0.0;
 	}
-      info._core.setCorePercent(ret);
     }
   else
     info._core.setCorePercent(ret);
