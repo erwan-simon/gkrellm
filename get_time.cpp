@@ -5,7 +5,7 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sat Jan 21 14:08:23 2017 antoine
-// Last update Sat Jan 21 14:31:35 2017 antoine
+// Last update Sat Jan 21 14:53:35 2017 antoine
 //
 
 #include <iostream>
@@ -28,9 +28,4 @@ if (_infile.good())
  _day = _day.substr (11,21);
  std::cout << _time << std::endl; 
  std::cout << _day<< std::endl;
-}
-
-int main()
-{
-  get_time();
 }
