@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 13:15:51 2017 erwan
-// Last update Sat Jan 21 18:35:37 2017 Pierre-Emmanuel Merlier
+// Last update Sat Jan 21 19:48:53 2017 erwan
 //
 
 #ifndef CORE_HPP_
@@ -28,7 +28,7 @@ public:
   float		*getCorePercent() const;
   float		*getRam() const;
   float		*getSwap() const;
-  int		getNbActivTasks() const;
+  int		getNbTasks() const;
   float		*getLoadAvg() const;
 
   void		setCPUModel(std::string CPUModel);
@@ -36,7 +36,7 @@ public:
   void		setCorePercent(float *corePercent);
   void		setRam(float *ram);
   void		setSwap(float *swap);
-  void		setNbActivTasks(int tasksNb);
+  void		setNbTasks(int tasksNb);
   void		setLoadAvg(float *loadAvg);
 private:
   std::string	_CPUModel;
@@ -44,7 +44,7 @@ private:
   float		*_corePercent; // tableau contenant dans l'ordre des cores leur pourcentage d'utilisation
   float		*_ram;
   float		*_swap;
-  int		_nbActivTasks; // nb tache active
+  int		_nbTasks; // nb tache active
   float		*_loadAvg;
 };
 

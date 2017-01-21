@@ -86,7 +86,7 @@ void	core(Infos const &infos)
   getmaxyx(stdscr, xMax, yMax);
   attron(COLOR_PAIR(0));
   mvprintw(6, yMax - 22, "%s", infos._core.getCPUModel().c_str());
-  mvprintw(8, yMax - 22, "%s", infos._core.getTasksNb().c_str());
+  mvprintw(8, yMax - 22, "%s", infos._core.getNbTasks());
   attroff(COLOR_PAIR(0));
 }
 

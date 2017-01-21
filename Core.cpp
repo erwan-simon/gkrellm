@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sat Jan 21 19:47:41 2017 erwan
+// Last update Sat Jan 21 19:50:33 2017 erwan
 //
 
 #include <string>
@@ -31,7 +31,7 @@ Core&	Core::operator=(Core const &other)
   this->setCorePercent(other.getCorePercent());
   this->setRam(other.getRam());
   this->setSwap(other.getSwap());
-  this->setNbActivTasks(other.getNbActivTasks());
+  this->setNbTasks(other.getNbTasks());
   this->setLoadAvg(other.getLoadAvg());
   return (*this);
 }
@@ -42,7 +42,7 @@ int	Core::getCoreNb() const				{return (this->_coreNb);}
 float	*Core::getCorePercent() const			{return (this->_corePercent);}
 float	*Core::getRam() const				{return (this->_ram);}
 float	*Core::getSwap() const				{return (this->_swap);}
-int	Core::getNbActivTasks() const			{return (this->_nbActivTasks);}
+int	Core::getNbTasks() const			{return (this->_nbTasks);}
 float	*Core::getLoadAvg() const			{return (this->_loadAvg);}
 
 /***** SETTER *****/
@@ -51,7 +51,7 @@ void	Core::setCoreNb(int coreNb)			{this->_coreNb = coreNb;}
 void	Core::setCorePercent(float *corePercent)	{this->_corePercent = corePercent;}
 void	Core::setRam(float *ram)			{this->_ram = ram;}
 void	Core::setSwap(float *swap)			{this->_swap = swap;}
-void	Core::setNbActivTasks(int tasksNb)		{this->_nbActivTasks = tasksNb;}
+void	Core::setNbTasks(int tasksNb)			{this->_nbTasks = tasksNb;}
 void	Core::setLoadAvg(float *loadAvg)		{this->_loadAvg = loadAvg;}
 
 /***** INITIALISATION *****/
@@ -168,4 +168,3 @@ void getSwapInfo(struct sysinfo info, Infos & _info)
   res[1] = total;
   _info._core.setSwap(res);
 }
-int main() {}
