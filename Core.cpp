@@ -5,10 +5,11 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sat Jan 21 19:27:07 2017 Pierre-Emmanuel Merlier
+// Last update Sat Jan 21 20:39:54 2017 Pierre-Emmanuel Merlier
 //
 
 #include <string>
+#include <vector>
 #include "Core.hpp"
 #include "Infos.hpp"
 
@@ -76,6 +77,21 @@ void init_Core(Infos &info)
 }
 
 /***** FUNCTIONS *****/
+std::string parsingCPU(const std::string find, const std::string end,
+		      const std::string str)
+{
+  int i, j;
+  std::string ret;
+  i = str.find(find);
+  j = str.find(end);
+  while (str[i] != ':')
+    i++;
+  i+=2;
+  while (i < j)
+    ret += str[i++];
+  return (ret);
+}
+
 void  getLoadAvgFromFile(Infos & info)
 {
   int i = 0, j = 0;
@@ -128,24 +144,62 @@ void  getNbTasksFromFile(Infos & info)
     }
 }
 
-// void Core::getCorePercentFromFile()
-// {
-
-// }
-
-std::string parsingCPU(const std::string find, const std::string end,
-		      const std::string str)
+void getCorePercentFromFile(Infos & info)
 {
-  int i, j;
-  std::string ret;
-  i = str.find(find);
-  j = str.find(end);
-  while (str[i] != ':')
-    i++;
-  i+=2;
-  while (i < j)
-    ret += str[i++];
-  return (ret);
+  int i, j = 0, n = 0;
+  int mem_size;
+  unsigned int k;
+  std::string src = PATH + "stat";
+  std::string src2 = PATH + "cpuinfo";
+  std::string line, str, nb;
+  std::vector<std::string> vec;
+  float ret[4] = {0.0, 0.0, 0.0, 0.0};
+  std::ifstream file(src.c_str(), std::ios::in);
+  std::ifstream file2(src2.c_str(), std::ios::in);
+
+  if (file2)
+    {
+      while (getline(file2, line))
+	str += line;
+      nb = parsingCPU("cache size", "physical id", str);
+      str = "";
+      while (nb[j] != ' ')
+	str += nb[j++];
+      mem_size = std::stoi(str);
+    }
+
+  str = "";
+  line = "";
+  nb = "";
+  if (file)
+    {
+      while (getline(file, line))
+	{
+	  str += line;
+	}
+      i = str.find("cpu0");
+      j = str.find("intr");
+      while (i < j)
+	{
+	  if (str[i] == 'c')
+	    {
+	      k = 0;
+	      while (k < vec.size())
+		ret[n] += std::stof(vec[k]);
+	      i += 4;
+	      ret[n] = ret[n] * 100 / (mem_size * 1024);
+	      n++;
+	      vec.clear();
+	    }
+	  while (str[i] >= '9' && str[i] <= '0')
+	    nb += str[i++];
+	  vec.push_back(nb);
+	  nb = "";
+	}
+      info._core.setCorePercent(ret);
+    }
+  else
+    info._core.setCorePercent(ret);
 }
 
 void getCPUInfo(Infos & info)
