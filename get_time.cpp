@@ -5,7 +5,7 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sat Jan 21 12:25:11 2017 antoine
-// Last update Sat Jan 21 12:35:40 2017 antoine
+// Last update Sat Jan 21 13:07:42 2017 antoine
 //
 
 #include <ctime>
@@ -17,7 +17,7 @@ const std::string currentDate() {
   struct tm  tstruct;
   char       buf[11];
   tstruct = *localtime(&now);
-  strftime(buf, sizeof(buf), "%Y-%m-%d", &tstruct);
+  strftime(buf, sizeof(buf), "%d-%m-%Y", &tstruct);
   return buf;
 }
 
