@@ -1,36 +1,36 @@
 //
-// get_time.cpp for  in /home/antoine/test
+// sysget_time.cpp for  in /home/antoine/rendu/Piscine_cpp/cpp_gkrellm
 // 
 // Made by antoine
 // Login   <antoine.roche@epitech.eu>
 // 
-// Started on  Sat Jan 21 12:25:11 2017 antoine
-// Last update Sat Jan 21 13:07:42 2017 antoine
+// Started on  Sat Jan 21 14:08:23 2017 antoine
+// Last update Sat Jan 21 14:31:35 2017 antoine
 //
 
-#include <ctime>
-#include <string>
 #include <iostream>
+#include <string>
+#include <fstream>
 
-const std::string currentDate() {
-  time_t     now = time(0);
-  struct tm  tstruct;
-  char       buf[11];
-  tstruct = *localtime(&now);
-  strftime(buf, sizeof(buf), "%d-%m-%Y", &tstruct);
-  return buf;
+void	get_time()
+{
+  std::ifstream _infile("/proc/driver/rtc");
+  std::string _time;
+  std::string _day;
+
+if (_infile.good())
+  {
+    std::getline(_infile, _time);
+    std::getline(_infile, _day);
+  }
+ _infile.close();
+ _time = _time.substr (11,19);
+ _day = _day.substr (11,21);
+ std::cout << _time << std::endl; 
+ std::cout << _day<< std::endl;
 }
 
-const std::string currentTime() {
-  time_t     now = time(0);
-  struct tm  tstruct;
-  char       buf[9];
-  tstruct = *localtime(&now);
-  strftime(buf, sizeof(buf), "%X", &tstruct);
-  return buf;
-}
-
-int main() {
-  std::cout << "currentDate : " << currentDate() << std::endl;
-  std::cout << "currentTime : " << currentTime() << std::endl;
+int main()
+{
+  get_time();
 }
