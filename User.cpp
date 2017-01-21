@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 14:22:34 2017 erwan
-// Last update Sat Jan 21 16:37:56 2017 antoine
+// Last update Sat Jan 21 17:23:37 2017 antoine
 //
 
 #include <sys/utsname.h>
@@ -52,6 +52,7 @@ std::string   User::getTime() const		{return (this->_time);}
 void	init_User(Infos &_info)
 {
   sys_get_hostname(_info);
+  sys_get_username(_info);
   sys_get_kernel(_info);
   sys_get_time(_info);
 }
@@ -69,7 +70,11 @@ void    sys_get_hostname(Infos &_info)
     }
   _file.close();
   _info._user.setMachineName(_hostname);
-  // std::cout << _hostname << std::endl;
+}
+
+void	sys_get_username(Infos &_info)
+{
+  _info._user.setUserName("UserName");
 }
 
 void            sys_get_kernel(Infos &_info)
@@ -85,8 +90,6 @@ void            sys_get_kernel(Infos &_info)
     }
   _info._user.setOpSys(k_name);
   _info._user.setKernel(k_vers);
-  // std::cout<<k_name<<std::endl;
-  // std::cout<<k_vers<<std::endl;
 }
 
 void    sys_get_time(Infos &_info)
@@ -112,6 +115,4 @@ void    sys_get_time(Infos &_info)
   _file.close();
   _info._user.setTime(_time);
   _info._user.setDate(_day);
-  // std::cout <<  << std::endl;
-  // std::cout << << std::endl;
 }

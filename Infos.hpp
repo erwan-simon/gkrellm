@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 12:29:09 2017 erwan
-// Last update Sat Jan 21 16:41:57 2017 erwan
+// Last update Sat Jan 21 17:24:06 2017 antoine
 //
 
 #ifndef INFOS_HPP_
@@ -29,6 +29,7 @@ public:
 
 void    init_User(Infos &_info);
 void    sys_get_hostname(Infos &_info);
+void    sys_get_username(Infos &_info);
 void    sys_get_kernel(Infos &_info);
 void    sys_get_time(Infos &_info);
 
