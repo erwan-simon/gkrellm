@@ -5,7 +5,7 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sat Jan 21 14:58:54 2017 antoine
-// Last update Sat Jan 21 14:59:13 2017 antoine
+// Last update Sat Jan 21 15:42:05 2017 antoine
 //
 
 #include <iostream>
@@ -14,13 +14,15 @@
 
 void    sys_get_hostname()
 {
-  std::ifstream _infile("/proc/sys/kernel/hostname");
-  std::string	_hostname;
+  std::string	_src = "/proc/sys/kernel/hostname";
+  std::ifstream _file(_src.c_str(), std::ios::in);
+  std::string	_hostname = "ERROR";;
 
-  if (_infile.good())
+  if (_file)
     {
-      std::getline(_infile, _hostname);
+      if (!_file.eof())
+	std::getline(_file, _hostname);
     }
-  _infile.close();
+  _file.close();
   std::cout << _hostname << std::endl;
 }
