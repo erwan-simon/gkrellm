@@ -5,12 +5,11 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sat Jan 21 22:59:00 2017 erwan
+// Last update Sat Jan 21 22:05:11 2017 Pierre-Emmanuel Merlier
 //
 
 #include <string>
 #include <vector>
-#include <iostream>
 #include "Core.hpp"
 #include "Infos.hpp"
 
@@ -64,7 +63,7 @@ void init_Core(Infos &info)
   getLoadAvgFromFile(info);
   getNbTasksFromFile(info);
   getCPUInfo(info);
-  // getCorePercentFromFile(info);
+  getCorePercentFromFile(info);
   struct sysinfo sys;
   if (!sysinfo(&sys))
     {
@@ -154,7 +153,7 @@ void getCorePercentFromFile(Infos & info)
   std::string src = PATH + "stat";
   std::string src2 = PATH + "cpuinfo";
   std::string line, str, nb;
-  std::vector<std::string> vec;
+  float stock;
   float ret[4] = {0.0, 0.0, 0.0, 0.0};
   std::ifstream file(src.c_str(), std::ios::in);
   std::ifstream file2(src2.c_str(), std::ios::in);
@@ -183,25 +182,25 @@ void getCorePercentFromFile(Infos & info)
       j = str.find("intr");
       while (i < j)
 	{
-	  std::cout << str[i] << std::endl;
 	  if (str[i] == 'c')
 	    {
 	      k = 0;
-	      while (k < vec.size())
-		{
-		  ret[n] += std::stof(vec[k]);
-		}
-	      i += 4;
-	      ret[n] = ret[n] * 100 / (mem_size * 1024);
-	      std::cout << ret[n] << std::endl;
+	      i++;
+	      ret[n] = stock * 100 / (mem_size * 1024);
 	      n++;
-	      vec.clear();
+	      stock = 0.0;
 	    }
-	  while (str[i] <= '9' && str[i] >= '0')
-	    nb += str[i++];
-	  vec.push_back(nb);
+	  if (str[i] >= '0' && str[i] <= '9')
+	    {
+	      while (str[i] >= '0' && str[i] <= '9')
+		{
+		  nb += str[i++];
+		}
+	      stock += std::stof(nb);
+	    }
 	  nb = "";
-	  i++;
+	  if (str[i] != 'c')
+	    i++;
 	}
       info._core.setCorePercent(ret);
     }
