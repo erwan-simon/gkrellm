@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sat Jan 21 20:39:54 2017 Pierre-Emmanuel Merlier
+// Last update Sat Jan 21 20:45:29 2017 Pierre-Emmanuel Merlier
 //
 
 #include <string>
@@ -63,6 +63,7 @@ void init_Core(Infos &info)
   getLoadAvgFromFile(info);
   getNbTasksFromFile(info);
   getCPUInfo(info);
+  getCorePercentFromFile(info);
   struct sysinfo sys;
   if (!sysinfo(&sys))
     {
@@ -224,25 +225,25 @@ void getCPUInfo(Infos & info)
 void getRamInfo(struct sysinfo sys, Infos &info)
 {
   float total, free, use;
-  float	res[2];
+  float	*ram = new float;
 
   total = (float)sys.totalram / (1024 * 1024 * 1024);
   free = (float)sys.freeram / (1024 * 1024 * 1024);
   use = total - free;
-  res[0] = use;
-  res[1] = total;
-  info._core.setRam(res);
+  ram[0] = use;
+  ram[1] = total;
+  info._core.setRam(ram);
 }
 
 void getSwapInfo(struct sysinfo sys, Infos & info)
 {
   float total, free, use;
-  float	res[2];
+  float	*swap = new float;
 
   total = (float)sys.totalswap / (1024 * 1024 * 1024);
   free = (float)sys.freeswap / (1024 * 1024 * 1024);
   use = total - free;
-  res[0] = use;
-  res[1] = total;
-  info._core.setSwap(res);
+  swap[0] = use;
+  swap[1] = total;
+  info._core.setSwap(swap);
 }
