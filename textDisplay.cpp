@@ -41,18 +41,18 @@ void	basicTemplate(Infos const &infos)
   attron(COLOR_PAIR(2));
   mvprintw(6, 2, "UserName: ");
   mvprintw(8, 2, "PCName: ");
+  mvprintw(2, 27, "CPU: ");
   while (a < infos._core.getCoreNb() + 2)
     {
       if (a >= infos._core.getCoreNb())
-	mvprintw(a + 2, 27, "%s[", (a == infos._core.getCoreNb() + 1 ? "Ram" : "Swp"));
+	mvprintw(a + 4, 27, "%s[", (a == infos._core.getCoreNb() + 1 ? "Ram" : "Swp"));
       else
-	mvprintw(a + 2, 27, "%d  [", a + 1);
-      mvprintw(a + 2, yMax - 35, "]");
+	mvprintw(a + 4, 27, "%d  [", a + 1);
+      mvprintw(a + 4, yMax - 35, "]");
       a++;
     }
   mvprintw(2, yMax - 31, "OS: ");
   mvprintw(4, yMax - 31, "Kernel: ");
-  mvprintw(6, yMax - 31, "CPU: ");
   mvprintw(8, yMax - 31, "Active tasks: ");
   attroff(COLOR_PAIR(2));
 }
@@ -85,7 +85,7 @@ void	core(Infos const &infos)
 
   getmaxyx(stdscr, xMax, yMax);
   attron(COLOR_PAIR(0));
-  mvprintw(6, yMax - 27, "%s", infos._core.getCPUModel().c_str());
+  mvprintw(2, 33, "%s", infos._core.getCPUModel().c_str());
   mvprintw(8, yMax - 17, "%d", infos._core.getNbTasks());
   attroff(COLOR_PAIR(0));
 }
