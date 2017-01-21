@@ -1,11 +1,11 @@
 //
 // Core.cpp for rush in /home/erwan/Code/teck/piscine/cpp_gkrellm
-// 
+//
 // Made by erwan
 // Login   <erwan.simon@epitech.eu>
-// 
+//
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sat Jan 21 19:57:28 2017 erwan
+// Last update Sat Jan 21 19:27:07 2017 Pierre-Emmanuel Merlier
 //
 
 #include <string>
@@ -55,22 +55,23 @@ void	Core::setNbTasks(int tasksNb)			{this->_nbTasks = tasksNb;}
 void	Core::setLoadAvg(float *loadAvg)		{this->_loadAvg = loadAvg;}
 
 /***** INITIALISATION *****/
-void init_Core(Infos &_info)
+void init_Core(Infos &info)
 {
   float	res[2] = {0.0, 0.0};
-  
-  getLoadAvgFromFile(_info);
-  getCPUInfo(_info);
-  struct sysinfo info;
-  if (!sysinfo(&info))
+
+  getLoadAvgFromFile(info);
+  getNbTasksFromFile(info);
+  getCPUInfo(info);
+  struct sysinfo sys;
+  if (!sysinfo(&sys))
     {
-      getRamInfo(info, _info);
-      getSwapInfo(info, _info);
+      getRamInfo(sys, info);
+      getSwapInfo(sys, info);
     }
   else
     {
-      _info._core.setRam(res);
-      _info._core.setSwap(res);
+      info._core.setRam(res);
+      info._core.setSwap(res);
     }
 }
 
@@ -82,7 +83,7 @@ void  getLoadAvgFromFile(Infos & info)
   std::string line, str;
   std::ifstream file(src.c_str(), std::ios::in);
   float	res[3] = {0.0, 0.0, 0.0};
-  
+
   if (file)
     {
       getline(file, line);
@@ -104,9 +105,32 @@ void  getLoadAvgFromFile(Infos & info)
     info._core.setLoadAvg(res);
 }
 
+void  getNbTasksFromFile(Infos & info)
+{
+  int i = 0;
+  std::string src = PATH + "loadavg";
+  std::string line, str;
+  std::ifstream file(src.c_str(), std::ios::in);
+
+  if (file)
+    {
+      getline(file, line);
+      while (line[i] != '/')
+	{
+	  i++;
+	}
+      str += line[i-1];
+      info._core.setNbTasks(std::stoi(str));
+    }
+  else
+    {
+      info._core.setNbTasks(0);
+    }
+}
+
 // void Core::getCorePercentFromFile()
 // {
-  
+
 // }
 
 std::string parsingCPU(const std::string find, const std::string end,
@@ -143,28 +167,28 @@ void getCPUInfo(Infos & info)
     }
 }
 
-void getRamInfo(struct sysinfo info, Infos &_info)
+void getRamInfo(struct sysinfo sys, Infos &info)
 {
   float total, free, use;
   float	res[2];
-  
-  total = (float)info.totalram / (1024 * 1024 * 1024);
-  free = (float)info.freeram / (1024 * 1024 * 1024);
+
+  total = (float)sys.totalram / (1024 * 1024 * 1024);
+  free = (float)sys.freeram / (1024 * 1024 * 1024);
   use = total - free;
   res[0] = use;
   res[1] = total;
-  _info._core.setRam(res);
+  info._core.setRam(res);
 }
 
-void getSwapInfo(struct sysinfo info, Infos & _info)
+void getSwapInfo(struct sysinfo sys, Infos & info)
 {
   float total, free, use;
   float	res[2];
-  
-  total = (float)info.totalswap / (1024 * 1024 * 1024);
-  free = (float)info.freeswap / (1024 * 1024 * 1024);
+
+  total = (float)sys.totalswap / (1024 * 1024 * 1024);
+  free = (float)sys.freeswap / (1024 * 1024 * 1024);
   use = total - free;
   res[0] = use;
   res[1] = total;
-  _info._core.setSwap(res);
+  info._core.setSwap(res);
 }

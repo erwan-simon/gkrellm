@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 12:29:09 2017 erwan
-// Last update Sat Jan 21 20:06:18 2017 erwan
+// Last update Sat Jan 21 19:22:55 2017 Pierre-Emmanuel Merlier
 //
 
 #ifndef INFOS_HPP_
@@ -36,6 +36,7 @@ void		sys_get_time(Infos &_info);
 void		init_Core(Infos &_info);
 void		getCorePercentFromFile(Infos &);
 void		getLoadAvgFromFile(Infos &);
+void		getNbTasksFromFile(Infos &);
 void		getCPUInfo(Infos &);
 void		getRamInfo(struct sysinfo, Infos &);
 void		getSwapInfo(struct sysinfo, Infos &);
