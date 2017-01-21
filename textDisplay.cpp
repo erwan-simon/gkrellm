@@ -74,7 +74,7 @@ void	user(Infos const &infos)
   mvprintw(2, 2, "%s", infos._user.getTime().c_str());
   mvprintw(2, 14, "%s", infos._user.getDate().c_str());
   mvprintw(2, yMax - 22, "%s", infos._user.getOpSys().c_str());
-  mvprintw(4, yMax - 22, "%s", infos._user.getKernel().c_str());
+  mvprintw(4, yMax - 20, "%s", infos._user.getKernel().c_str());
   attroff(COLOR_PAIR(0));
 }
 
@@ -86,7 +86,7 @@ void	core(Infos const &infos)
   getmaxyx(stdscr, xMax, yMax);
   attron(COLOR_PAIR(0));
   mvprintw(6, yMax - 22, "%s", infos._core.getCPUModel().c_str());
-  mvprintw(8, yMax - 22, "%s", infos._core.getNbTasks());
+  mvprintw(8, yMax - 10, "%d", infos._core.getNbTasks());
   attroff(COLOR_PAIR(0));
 }
 
