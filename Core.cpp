@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sat Jan 21 14:21:26 2017 erwan
+// Last update Sat Jan 21 14:42:00 2017 erwan
 //
 
 #include <string>
@@ -23,6 +23,7 @@ Core&	Core::operator=(Core const &other)
   this->setSwap(other.getSwap());
   this->setTasksNb(other.getTasksNb());
   this->setLoadAvg(other.getLoadAvg());
+  return (*this);
 }
 
 int	Core::getCoreNb() const
@@ -55,9 +56,9 @@ float	*Core::getLoadAvg() const
   return (this->_loadAvg);
 }
 
-void	Core::setCoreNb(int core)
+void	Core::setCoreNb(int coreNb)
 {
-  this->_core = core;
+  this->_coreNb = coreNb;
 }
 
 void	Core::setCorePercent(float *corePercent)
