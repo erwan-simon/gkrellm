@@ -2,11 +2,16 @@
 #include <string>
 #include "textDisplay.hpp"
 
-void	basicTemplate()
+void	basicTemplate(infos const &infos)
 {
-  while ()
-    {
+  int	a = 0;
+  int	x = 1;
+  int	y = 1;
 
+  while (a != infos.getNbCore() + 1)
+    {
+      mvprintw(x + a, y, "%d  [", a + 1);
+      a++;
     }
 }
 
@@ -29,7 +34,7 @@ void		textDisplay()
       getmaxyx(stdscr,size[2],size[3]);
       if (size[2] != size[0] || size[3] != size[1])
 	{
-	  basicTemplate();
+	  basicTemplate(*infos);
 	  size[0] = size[2];
 	  size[1] = size[3];
 	}
