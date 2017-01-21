@@ -1,17 +1,11 @@
 #include <ncurses.h>
 #include <string>
 #include <ctime>
+#include <iostream>
 #include "Infos.hpp"
 #include "Core.hpp"
 #include "User.hpp"
 #include "textDisplay.hpp"
-
-void	updateInfos(Infos &infos)
-{
-  init_User(infos);
-  init_Core(infos);
-  infos._core.setCoreNb(4);
-}
 
 void	basicTemplate(Infos const &infos)
 {
@@ -90,13 +84,12 @@ void	gauge(Infos const &infos)
   mvprintw(15, yMax - 46, "%.2fG/%.2fG", temp[0], temp[1]);
 
   srand(time(NULL));
+  // t = infos._core.getCorePercent();
   for (a = 0; a < infos._core.getCoreNb(); a++)
     {
       attron(COLOR_PAIR(3));
-      // temp = infos._core.getCorePercent();
-      temp[a] = rand() % 10001;
-      temp[a] = temp[a] * 0.0001;
-      length = (int) (((temp[a] * 100) * totalLength) / 100);
+      temp[a] = rand() % 100;
+      length = (int) ((temp[a] * totalLength) / 100);
       for (i = 0; i < length; i++)
   	mvprintw(4 + (a * 2), i + 31, " ");
       attroff(COLOR_PAIR(3));
@@ -104,7 +97,7 @@ void	gauge(Infos const &infos)
       for (i = i; i < totalLength; i++)
 	mvprintw(4 + (a * 2), i + 31, " ");
       attroff(COLOR_PAIR(0));
-      mvprintw(5 + (a * 2), yMax - 40, "%.2f%%", temp[a]);
+      mvprintw(5 + (a * 2), yMax - 38, "%.0f%%", temp[a]);
     }
 }
 

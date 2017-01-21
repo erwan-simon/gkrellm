@@ -5,13 +5,20 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sat Jan 21 19:53:10 2017 antoine
-// Last update Sat Jan 21 21:20:43 2017 erwan
+// Last update Sun Jan 22 00:49:50 2017 erwan
 //
 
 #include <iostream>
 
 #include "Infos.hpp"
 #include "textDisplay.hpp"
+
+void    updateInfos(Infos &infos)
+{
+  init_User(infos);
+  init_Core(infos);
+  infos._core.setCoreNb(4);
+}
 
 void    help_mode()
 {

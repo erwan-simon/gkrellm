@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sat Jan 21 22:42:10 2017 Pierre-Emmanuel Merlier
+// Last update Sun Jan 22 00:03:57 2017 erwan
 //
 
 #include <string>
@@ -63,7 +63,7 @@ void init_Core(Infos &info)
   getLoadAvgFromFile(info);
   getNbTasksFromFile(info);
   getCPUInfo(info);
-  getCorePercentFromFile(info);
+  // getCorePercentFromFile(info);
   struct sysinfo sys;
   if (!sysinfo(&sys))
     {
