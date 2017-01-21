@@ -5,14 +5,13 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 13:18:00 2017 erwan
-// Last update Sat Jan 21 16:38:10 2017 antoine
+// Last update Sat Jan 21 16:42:04 2017 erwan
 //
 
 #ifndef USER_HPP_
 # define USER_HPP_
 
 #include <string>
-#include "Infos.hpp"
 
 class		User
 {
@@ -44,10 +43,5 @@ private:
   std::string	_date;
   std::string	_time;
 };
-
-void    init_User(Infos &_info);
-void    sys_get_hostname(Infos &_info);
-void    sys_get_kernel(Infos &_info);
-void    sys_get_time(Infos &_info);
 
 #endif
