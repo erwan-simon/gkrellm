@@ -8,7 +8,7 @@
 void	updateInfos(Infos &infos)
 {
   init_User(infos);
-  // init_Core(infos);
+  init_Core(infos);
   infos._core.setCoreNb(4);
 }
 
@@ -86,7 +86,7 @@ void	core(Infos const &infos)
   getmaxyx(stdscr, xMax, yMax);
   attron(COLOR_PAIR(0));
   mvprintw(6, yMax - 27, "%s", infos._core.getCPUModel().c_str());
-  mvprintw(8, yMax - 17, "%d", infos._core.getCoreNb());
+  mvprintw(8, yMax - 17, "%d", infos._core.getNbTasks());
   attroff(COLOR_PAIR(0));
 }
 
