@@ -1,18 +1,18 @@
 //
-// sysget_time.cpp for  in /home/antoine/rendu/Piscine_cpp/cpp_gkrellm
+// sys_get_time.cpp for  in /home/antoine/rendu/Piscine_cpp/cpp_gkrellm
 // 
 // Made by antoine
 // Login   <antoine.roche@epitech.eu>
 // 
-// Started on  Sat Jan 21 14:08:23 2017 antoine
-// Last update Sat Jan 21 14:53:35 2017 antoine
+// Started on  Sat Jan 21 14:58:04 2017 antoine
+// Last update Sat Jan 21 14:58:04 2017 antoine
 //
 
 #include <iostream>
 #include <string>
 #include <fstream>
 
-void	get_time()
+void	sys_get_time()
 {
   std::ifstream _infile("/proc/driver/rtc");
   std::string _time;
