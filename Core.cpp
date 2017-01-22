@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sun Jan 22 02:44:34 2017 Pierre-Emmanuel Merlier
+// Last update Sun Jan 22 03:46:53 2017 Pierre-Emmanuel Merlier
 //
 
 #include <string>
@@ -80,21 +80,6 @@ void init_Core(Infos &info)
 }
 
 /***** FUNCTIONS *****/
-std::string parsingCPU(const std::string find, const std::string end,
-		      const std::string str)
-{
-  int i, j;
-  std::string ret;
-  i = str.find(find);
-  j = str.find(end);
-  while (str[i] != ':')
-    i++;
-  i+=2;
-  while (i < j)
-    ret += str[i++];
-  return (ret);
-}
-
 void  getLoadAvgFromFile(Infos & info)
 {
   int i = 0, j = 0;
@@ -277,8 +262,6 @@ void getCorePercentFromFile(Infos & info)
   float *ret = new float;
   float *prevIdle, *idle;
   float *prevNonIdle, *nonIdle;
-  float *prevTotal = new float;
-  float *total = new float;
   float *totald = new float;
   float *idled = new float;
 
@@ -293,9 +276,6 @@ void getCorePercentFromFile(Infos & info)
   int i = 0;
   while (i < 4)
     {
-      prevTotal[i] = prevIdle[i] + prevNonIdle[i];
-      total[i] = idle[i] + nonIdle[i];
-
       totald[i] = nonIdle[i] - prevNonIdle[i];
       idled[i] = idle[i] - prevIdle[i];
 
@@ -303,8 +283,26 @@ void getCorePercentFromFile(Infos & info)
       i++;
     }
   info._core.setCorePercent(ret);
+  delete (prevIdle);
+  delete (idle);
+  delete (prevNonIdle);
+  delete (nonIdle);
+  delete (totald);
+  delete (idled);
 }
 //!CPU
+
+std::string parsingCPU(const std::string str)
+{
+  unsigned int i = 0;
+  std::string ret;
+  while (str[i] != ':')
+    i++;
+  i+=2;
+  while (i < str.length())
+    ret += str[i++];
+  return (ret);
+}
 
 void getCPUInfo(Infos & info)
 {
@@ -314,9 +312,12 @@ void getCPUInfo(Infos & info)
   if (file)
     {
       while (getline(file, line))
-	str += line;
-      info._core.setCPUModel(parsingCPU("model name", "stepping", str));
-      info._core.setCoreNb(std::stoi(parsingCPU("cpu cores", "apicid", str)));
+	{
+	  if (line.find("mode name") != -1)
+	    info._core.setCPUModel(parsingCPU(line));
+	  else if (line.find("processor") != -1)
+	    info._core.setCoreNb(info._core.getCoreNb() + 1);
+	}
     }
   else
     {
