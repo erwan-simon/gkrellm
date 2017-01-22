@@ -5,11 +5,10 @@
 ## Login   <pe.merlier@epitech.net>
 ## 
 ## Started on  Sun Jan 22 04:43:15 2017 Pierre-Emmanuel Merlier
-## Last update Sun Jan 22 06:08:59 2017 Pierre-Emmanuel Merlier
+## Last update Sun Jan 22 07:49:53 2017 antoine
 ##
 
-SRC=	CPU.cpp\
-	RAM.cpp\
+SRC=	Core.cpp\
 	graphDisplay.cpp\
 	Infos.cpp\
 	lineDisplay.cpp\
@@ -17,7 +16,6 @@ SRC=	CPU.cpp\
 	Network.cpp\
 	textDisplay.cpp\
 	User.cpp\
-	Date.cpp\
 
 OBJ=	$(SRC:.cpp=.o)
 

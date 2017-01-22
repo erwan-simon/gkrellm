@@ -5,52 +5,67 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sun Jan 22 06:29:23 2017 Pierre-Emmanuel Merlier
+// Last update Sun Jan 22 04:53:45 2017 Pierre-Emmanuel Merlier
 //
 
-#include "CPU.hpp"
+#include <string>
+#include <vector>
+#include <chrono>
+#include <thread>
+#include "Core.hpp"
 #include "Infos.hpp"
 
 static std::string PATH = "/proc/";
 
 
 /***** CONSTRUCTOR *****/
-CPU::CPU()
+Core::Core()
 {
 }
 
-CPU::~CPU()
+Core::~Core()
 {
 }
 
 /***** OPERATOR *****/
-CPU&	CPU::operator=(CPU const &other)
+Core&	Core::operator=(Core const &other)
 {
-  this->setCPUModel(other.getCPUModel());
-  this->setCoreNb(other.getCPUNb());
-  this->setCorePercent(other.getCPUPercent());
+  this->setCoreNb(other.getCoreNb());
+  this->setCorePercent(other.getCorePercent());
+  this->setRam(other.getRam());
+  this->setSwap(other.getSwap());
+  this->setNbTasks(other.getNbTasks());
+  this->setLoadAvg(other.getLoadAvg());
   return (*this);
 }
 
 /***** GETTER *****/
-std::string CPU::getCPUModel() const			{return (this->_CPUModel);}
-int	CPU::getCoreNb() const				{return (this->_coreNb);}
-float	*CPU::getCorePercent() const			{return (this->_corePercent);}
+std::string Core::getCPUModel() const			{return (this->_CPUModel);}
+int	Core::getCoreNb() const				{return (this->_coreNb);}
+float	*Core::getCorePercent() const			{return (this->_corePercent);}
+float	*Core::getRam() const				{return (this->_ram);}
+float	*Core::getSwap() const				{return (this->_swap);}
+int	Core::getNbTasks() const			{return (this->_nbTasks);}
+float	*Core::getLoadAvg() const			{return (this->_loadAvg);}
 
 /***** SETTER *****/
-void	CPU::setCPUModel(std::string model)		{this->_CPUModel = model;}
-void	CPU::setCoreNb(int coreNb)			{this->_coreNb = coreNb;}
-void	CPU::setCorePercent(float *corePercent)		{this->_corePercent = corePercent;}
+void	Core::setCPUModel(std::string model)		{this->_CPUModel = model;}
+void	Core::setCoreNb(int coreNb)			{this->_coreNb = coreNb;}
+void	Core::setCorePercent(float *corePercent)	{this->_corePercent = corePercent;}
+void	Core::setRam(float *ram)			{this->_ram = ram;}
+void	Core::setSwap(float *swap)			{this->_swap = swap;}
+void	Core::setNbTasks(int tasksNb)			{this->_nbTasks = tasksNb;}
+void	Core::setLoadAvg(float *loadAvg)		{this->_loadAvg = loadAvg;}
 
 /***** INITIALISATION *****/
-void CPU::init(Infos &info)
+void init_Core(Infos &info)
 {
   float	res[2] = {0.0, 0.0};
 
   getLoadAvgFromFile(info);
   getNbTasksFromFile(info);
   getCPUInfo(info);
-  getCPUPercentFromFile(info);
+  getCorePercentFromFile(info);
   struct sysinfo sys;
   if (!sysinfo(&sys))
     {
@@ -65,6 +80,59 @@ void CPU::init(Infos &info)
 }
 
 /***** FUNCTIONS *****/
+void  getLoadAvgFromFile(Infos & info)
+{
+  int i = 0, j = 0;
+  std::string src = PATH + "loadavg";
+  std::string line, str;
+  std::ifstream file(src.c_str(), std::ios::in);
+  float	res[3] = {0.0, 0.0, 0.0};
+
+  if (file)
+    {
+      getline(file, line);
+      while (j < 3)
+	{
+	  if (line[i] == ' ')
+	    {
+	      res[j] = std::stof(str);
+	      i++;
+	      j++;
+	      str = "";
+	    }
+	  str += line[i];
+	  i++;
+	}
+      info._core.setLoadAvg(res);
+    }
+  else
+    info._core.setLoadAvg(res);
+}
+
+void  getNbTasksFromFile(Infos & info)
+{
+  int i = 0;
+  std::string src = PATH + "loadavg";
+  std::string line, str;
+  std::ifstream file(src.c_str(), std::ios::in);
+
+  if (file)
+    {
+      getline(file, line);
+      while (line[i] != '/')
+	{
+	  i++;
+	}
+      str += line[i-1];
+      info._core.setNbTasks(std::stoi(str));
+    }
+  else
+    {
+      info._core.setNbTasks(0);
+    }
+}
+
+//CPUPercentage
 float getCPUIdle(std::string line)
 {
   int k = 0;
@@ -187,7 +255,7 @@ float *fillCPUNonIdle(std::string src)
   return (ret);
 }
 
-void getCPUPercentFromFile(Infos & info)
+void getCorePercentFromFile(Infos & info)
 {
   std::string src = PATH + "stat";
   float *ret = new float;
@@ -213,7 +281,7 @@ void getCPUPercentFromFile(Infos & info)
       ret[i] = (totald[i] / (totald[i] + idled[i])) * 100;
       i++;
     }
-  info._core.setCPUPercent(ret);
+  info._core.setCorePercent(ret);
   delete (prevIdle);
   delete (idle);
   delete (prevNonIdle);
@@ -221,6 +289,7 @@ void getCPUPercentFromFile(Infos & info)
   delete (totald);
   delete (idled);
 }
+//!CPU
 
 std::string parsingCPU(const std::string str)
 {
@@ -239,7 +308,7 @@ void getCPUInfo(Infos & info)
   std::string src = PATH + "cpuinfo";
   std::string str, line;
   std::ifstream file(src.c_str(), std::ios::in);
-  info._core.setCPUNb(0);
+  info._core.setCoreNb(0);
   if (file)
     {
       while (getline(file, line))
@@ -247,12 +316,38 @@ void getCPUInfo(Infos & info)
 	  if (line.find("model name") != -1)
 	    info._core.setCPUModel(parsingCPU(line));
 	  else if (line.find("processor") != -1)
-	    info._core.setCPUNb(info._core.getCPUNb() + 1);
+	    info._core.setCoreNb(info._core.getCoreNb() + 1);
 	}
     }
   else
     {
       info._core.setCPUModel("");
-      info._core.setCPUNb(0);
+      info._core.setCoreNb(0);
     }
+}
+
+void getRamInfo(struct sysinfo sys, Infos &info)
+{
+  float total, free, use;
+  float	*ram = new float;
+
+  total = (float)sys.totalram / (1024 * 1024 * 1024);
+  free = (float)sys.freeram / (1024 * 1024 * 1024);
+  use = total - free;
+  ram[0] = use;
+  ram[1] = total;
+  info._core.setRam(ram);
+}
+
+void getSwapInfo(struct sysinfo sys, Infos & info)
+{
+  float total, free, use;
+  float	*swap = new float;
+
+  total = (float)sys.totalswap / (1024 * 1024 * 1024);
+  free = (float)sys.freeswap / (1024 * 1024 * 1024);
+  use = total - free;
+  swap[0] = use;
+  swap[1] = total;
+  info._core.setSwap(swap);
 }

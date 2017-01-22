@@ -5,7 +5,7 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sun Jan 22 02:30:51 2017 antoine
-// Last update Sun Jan 22 07:21:30 2017 antoine
+// Last update Sun Jan 22 07:46:12 2017 antoine
 //
 
 #include <iostream>
@@ -246,6 +246,13 @@ void	print_graphCPU4(sf::RenderWindow *window, Infos const &infos)
   print_shape2(window, 397, 300 , 37 , size, size / 4);
 }
 
+void	print_asciiname(sf::RenderWindow *window)
+{
+  std::ifstream t("name.txt");
+  std::string str((std::istreambuf_iterator<char>(t)),
+		  std::istreambuf_iterator<char>());
+  print_text2(window, str, 600, 600);
+}
 void    graphDisplay(Infos &infos)
 {
   sf::RenderWindow window(sf::VideoMode(900, 800), "My GKrellm");
@@ -274,6 +281,8 @@ void    graphDisplay(Infos &infos)
       print_graphCPU2(&window, infos);
       print_graphCPU3(&window, infos);
       print_graphCPU4(&window, infos);
+      print_asciiname(&window);
+      
       window.display();
     }
 }

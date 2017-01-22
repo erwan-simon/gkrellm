@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 12:29:09 2017 erwan
-// Last update Sun Jan 22 06:30:36 2017 Pierre-Emmanuel Merlier
+// Last update Sun Jan 22 07:50:35 2017 antoine
 //
 
 #ifndef INFOS_HPP_
@@ -30,12 +30,14 @@ public:
   Network	_network;
 };
 
+void		init_user(Infos &);
 void		sys_get_hostname(Infos &_info);
 void		sys_get_username(Infos &_info);
 void		sys_get_kernel(Infos &_info);
 
 void		sys_get_time(Infos &_info);
 
+void		init_core(Infos &);
 void		getCorePercentFromFile(Infos &);
 float		getCPUIdle(std::string);
 float		getCPUNonIdle(std::string);
