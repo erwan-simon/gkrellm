@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sun Jan 22 01:00:53 2017 erwan
-// Last update Sun Jan 22 02:33:10 2017 erwan
+// Last update Sun Jan 22 02:37:04 2017 erwan
 //
 
 #include <string>
@@ -54,7 +54,6 @@ void	init_Network(Infos &infos)
 
   while (std::getline(file, line))
     {
-      std::cout << line << std::endl;
       if ((a = line.find(":")) != -1)
 	{
 	  a++;
