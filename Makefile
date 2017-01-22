@@ -5,7 +5,7 @@
 ## Login   <pe.merlier@epitech.net>
 ## 
 ## Started on  Sun Jan 22 04:43:15 2017 Pierre-Emmanuel Merlier
-## Last update Sun Jan 22 07:49:53 2017 antoine
+## Last update Sun Jan 22 07:00:29 2017 Pierre-Emmanuel Merlier
 ##
 
 SRC=	Core.cpp\
@@ -21,7 +21,7 @@ OBJ=	$(SRC:.cpp=.o)
 
 NAME=	my_gkrellm
 
-CXXFLAGS += -std=c++11 -Wall -w -Wextra
+CXXFLAGS += -std=c++11 -Wall -W -Wextra -Werror
 
 all:	$(NAME)
 

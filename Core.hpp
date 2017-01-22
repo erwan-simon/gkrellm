@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 13:15:51 2017 erwan
-// Last update Sun Jan 22 00:55:08 2017 Pierre-Emmanuel Merlier
+// Last update Sun Jan 22 06:58:48 2017 Pierre-Emmanuel Merlier
 //
 
 #ifndef CORE_HPP_
@@ -14,12 +14,13 @@
 #include <fstream>
 #include <string>
 #include <sys/sysinfo.h>
+#include "IMonitorModule.hpp"
 
-class		Core
+class		Core : public IMonitorModule
 {
 public:
   Core();
-  ~Core();
+  virtual ~Core();
   Core&		operator=(Core const &other);
 
 public:

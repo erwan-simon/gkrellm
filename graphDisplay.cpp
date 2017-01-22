@@ -5,7 +5,7 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sun Jan 22 02:30:51 2017 antoine
-// Last update Sun Jan 22 07:46:12 2017 antoine
+// Last update Sun Jan 22 07:04:32 2017 Pierre-Emmanuel Merlier
 //
 
 #include <iostream>
@@ -188,7 +188,6 @@ void	print_data(sf::RenderWindow *window, Infos const &infos)
 void	print_graphCPU(sf::RenderWindow *window, Infos const &infos)
 {
   float	val;
-  int	place = 0;
   
   print_shape2(window, 215, 300, 39, 400, 0);
   val = (((infos._core.getCorePercent()[0]) + (infos._core.getCorePercent()[1]) +
@@ -201,7 +200,6 @@ void	print_graphCPU(sf::RenderWindow *window, Infos const &infos)
 void	print_graphCPU1(sf::RenderWindow *window, Infos const &infos)
 {
   float	val;
-  int	place = 0;
   
   print_shape2(window, 261, 300, 39, 400, 0);
   val = infos._core.getCorePercent()[0];
@@ -213,7 +211,6 @@ void	print_graphCPU1(sf::RenderWindow *window, Infos const &infos)
 void	print_graphCPU2(sf::RenderWindow *window, Infos const &infos)
 {
   float	val;
-  int	place = 0;
   
   print_shape2(window, 306, 300, 39, 400, 0);
   val = infos._core.getCorePercent()[1];
@@ -225,7 +222,6 @@ void	print_graphCPU2(sf::RenderWindow *window, Infos const &infos)
 void	print_graphCPU3(sf::RenderWindow *window, Infos const &infos)
 {
   float	val;
-  int	place = 0;
   
   print_shape2(window, 351, 300, 39, 400, 0);
   val = infos._core.getCorePercent()[2];
@@ -237,7 +233,6 @@ void	print_graphCPU3(sf::RenderWindow *window, Infos const &infos)
 void	print_graphCPU4(sf::RenderWindow *window, Infos const &infos)
 {
   float	val;
-  int	place = 0;
   
   print_shape2(window, 396, 300, 39, 400, 0);
   val = infos._core.getCorePercent()[3];

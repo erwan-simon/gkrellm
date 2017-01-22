@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sun Jan 22 04:53:45 2017 Pierre-Emmanuel Merlier
+// Last update Sun Jan 22 07:02:27 2017 Pierre-Emmanuel Merlier
 //
 
 #include <string>
@@ -146,7 +146,7 @@ float getCPUIdle(std::string line)
 	{
 	  while (line[i] >= '0' && line[i] <= '9')
 	    nb += line[i++];
-	  if (k == 3 | k == 4)
+	  if (k == 3 || k == 4)
 	    idle += std::stof(nb);
 	  k++;
 	  nb = "";
@@ -313,9 +313,9 @@ void getCPUInfo(Infos & info)
     {
       while (getline(file, line))
 	{
-	  if (line.find("model name") != -1)
+	  if (line.find("model name") != std::string::npos)
 	    info._core.setCPUModel(parsingCPU(line));
-	  else if (line.find("processor") != -1)
+	  else if (line.find("processor") != std::string::npos)
 	    info._core.setCoreNb(info._core.getCoreNb() + 1);
 	}
     }
