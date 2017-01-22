@@ -5,7 +5,7 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sun Jan 22 02:30:51 2017 antoine
-// Last update Sun Jan 22 03:35:27 2017 antoine
+// Last update Sun Jan 22 04:01:11 2017 antoine
 //
 
 #include <iostream>
@@ -87,17 +87,29 @@ void    print_cpu(sf::RenderWindow *window, Infos const &infos)
   print_title(window, "CPU :", 225);
   print_text(window, infos._core.getCPUModel(), 245);
   print_shape(window, 257, 1);
+   std::ostringstream ss1;
   print_title(window, "CPU 1 :", 270);
-  print_text(window, "20%", 290);
+  ss1 << infos._core.getCorePercent()[0] << " %";
+  std::string a(ss1.str());
+  print_text(window, a, 290);
   print_shape(window, 302, 1);
+  std::ostringstream ss2;
   print_title(window, "CPU 2 :", 315);
-  print_text(window, "20%", 335);
+  ss2 << infos._core.getCorePercent()[1] << " %";
+  std::string b(ss2.str());
+  print_text(window, b, 335);
   print_shape(window, 347, 1);
+  std::ostringstream ss3;
   print_title(window, "CPU 3 :", 360);
-  print_text(window, "20%", 380);
+  ss3 << infos._core.getCorePercent()[2] << " %";
+  std::string c(ss3.str());
+  print_text(window, c, 380);
   print_shape(window, 392, 1);
+  std::ostringstream ss4;
   print_title(window, "CPU 4 :", 410);
-  print_text(window, "20%", 430);
+  ss4 << infos._core.getCorePercent()[3] << " %";
+  std::string d(ss4.str());
+  print_text(window, d, 430);
 }
 
 void    print_kernel(sf::RenderWindow *window, Infos const &infos)
@@ -105,7 +117,7 @@ void    print_kernel(sf::RenderWindow *window, Infos const &infos)
   print_shape(window, 470, 50);
   print_title(window, "RAM :", 480);
   std::ostringstream ss;
-  ss << infos._core.getRam()[0] << "G/" << infos._core.getRam()[1] << "G";
+  ss << infos._core.getRam()[0] << "G  |  " << infos._core.getRam()[1] << "G";
   std::string s(ss.str());
   print_text(window, s, 500);
 
@@ -116,13 +128,21 @@ void    print_kernel(sf::RenderWindow *window, Infos const &infos)
   print_shape(window, 630, 50);
   print_title(window, "Kernel :", 640);
   print_text(window, infos._user.getKernel(), 660);
-
 }
 
+void	print_data(sf::RenderWindow *window, Infos const &infos)
+{
+  print_shape(window, 710, 50);
+  print_title(window, "Internet :", 720);
+  std::ostringstream ss;
+  ss << "Up : " <<infos._network.getUp() << "  |   Down : " << infos._network.getDown();
+  std::string s(ss.str());
+  print_text(window, s, 740);
+}
 
 void    graphDisplay(Infos &infos)
 {
-  sf::RenderWindow window(sf::VideoMode(300, 700), "My GKrellm");
+  sf::RenderWindow window(sf::VideoMode(300, 760), "My GKrellm");
 
   while (window.isOpen())
     {
@@ -142,7 +162,7 @@ void    graphDisplay(Infos &infos)
       print_user(&window, infos);
       print_cpu(&window, infos);
       print_kernel(&window, infos);
-
+      print_data(&window, infos);
       window.display();
     }
 }
