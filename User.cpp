@@ -5,13 +5,8 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 14:22:34 2017 erwan
-// Last update Sat Jan 21 21:01:47 2017 antoine
+// Last update Sun Jan 22 06:29:14 2017 Pierre-Emmanuel Merlier
 //
-
-#include <sys/utsname.h>
-#include <iostream>
-#include <fstream>
-#include <string>
 
 #include "User.hpp"
 #include "Infos.hpp"
@@ -39,17 +34,13 @@ void          User::setMachineName(std::string machineName)	{this->_machineName 
 void          User::setUserName(std::string userName)		{this->_userName = userName;}
 void          User::setOpSys(std::string opSys)			{this->_opSys = opSys;}
 void          User::setKernel(std::string kernel)		{this->_kernel = kernel;}
-void          User::setDate(std::string date)			{this->_date = date;}
-void          User::setTime(std::string time)			{this->_time = time;}
 
 std::string   User::getMachineName() const	{return (this->_machineName);}
 std::string   User::getUserName() const		{return (this->_userName);}
 std::string   User::getOpSys() const		{return (this->_opSys);}
 std::string   User::getKernel() const		{return (this->_kernel);}
-std::string   User::getDate() const		{return (this->_date);}
-std::string   User::getTime() const		{return (this->_time);}
 
-void	init_User(Infos &_info)
+void	User::init(Infos &_info)
 {
   sys_get_hostname(_info);
   // sys_get_username(_info);
@@ -90,29 +81,4 @@ void            sys_get_kernel(Infos &_info)
     }
   _info._user.setOpSys(k_name);
   _info._user.setKernel(k_vers);
-}
-
-void    sys_get_time(Infos &_info)
-{
-
-  std::string   _src = "/proc/driver/rtc";
-  std::ifstream _file(_src.c_str(), std::ios::in);
-  std::string   _line;
-  std::string _time = "ERROR";
-  std::string _day = "ERROR";
-
-  if (_file)
-    {
-      while(!_file.eof())
-	{
-	  std::getline(_file, _line);
-	  if (_line.find("rtc_time") != _line.npos)
-	    _time = _line.substr (11,19);
-	  if (_line.find("rtc_date") != _line.npos)
-	    _day = _line.substr (11,21);
-	}
-    }
-  _file.close();
-  _info._user.setTime(_time);
-  _info._user.setDate(_day);
 }

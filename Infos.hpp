@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 12:29:09 2017 erwan
-// Last update Sun Jan 22 01:10:46 2017 Pierre-Emmanuel Merlier
+// Last update Sun Jan 22 06:30:36 2017 Pierre-Emmanuel Merlier
 //
 
 #ifndef INFOS_HPP_
@@ -30,13 +30,11 @@ public:
   Network	_network;
 };
 
-void		init_User(Infos &_info);
 void		sys_get_hostname(Infos &_info);
 void		sys_get_username(Infos &_info);
 void		sys_get_kernel(Infos &_info);
-void		sys_get_time(Infos &_info);
 
-void		init_Core(Infos &_info);
+void		sys_get_time(Infos &_info);
 
 void		getCorePercentFromFile(Infos &);
 float		getCPUIdle(std::string);
@@ -51,7 +49,7 @@ void		getRamInfo(struct sysinfo, Infos &);
 void		getSwapInfo(struct sysinfo, Infos &);
 std::string	parsingCPU(const std::string, const std::string, const std::string);
 
-void init_Network(Infos &);
-void display(Infos &);
+void		init_Network(Infos &);
+void		display(Infos &);
 
 #endif
