@@ -5,11 +5,12 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sun Jan 22 02:30:51 2017 antoine
-// Last update Sun Jan 22 02:59:17 2017 antoine
+// Last update Sun Jan 22 03:11:53 2017 antoine
 //
 
 #include <iostream>
 #include <string>
+#include <sstream>
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -101,19 +102,20 @@ void    print_cpu(sf::RenderWindow *window, Infos const &infos)
 
 void    print_kernel(sf::RenderWindow *window, Infos const &infos)
 {
-  std::string _std = "coucouctwaawawa";
-
   print_shape(window, 470, 50);
   print_title(window, "RAM :", 480);
-  print_text(window, "xadaza", 500);
+  std::ostringstream ss;
+  ss << infos._core.getRam();
+  std::string s(ss.str());
+  print_text(window, s, 500);
 
   print_shape(window, 550, 50);
   print_title(window, "OS :", 560);
-  print_text(window, "wawawlalalalallala", 580);
+  print_text(window, infos._user.getOpSys(), 580);
 
   print_shape(window, 630, 50);
   print_title(window, "Kernel :", 640);
-  print_text(window, "azesrdtfgyuhjfghwawawlalalalallala", 660);
+  print_text(window, infos._user.getKernel(), 660);
 
 }
 
