@@ -5,7 +5,7 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sat Jan 21 19:53:10 2017 antoine
-// Last update Sun Jan 22 03:01:17 2017 antoine
+// Last update Sun Jan 22 03:32:46 2017 antoine
 //
 
 #include <iostream>
@@ -55,15 +55,12 @@ int		main(int ac, char ** av, char **env)
   std::string	user_name = my_getenv(env);
 
   infos->_user.setUserName(user_name);
-  graphDisplay(*infos);
-  // if (ac == 1)
-  //   textDisplay(*infos);
-  // else if ((std::string) av[1] == "-g")
-  //   std::cout << "graphic" << std::endl;
-  //     //   graphicDisplay(*infos);
-  //   else
-  //     help_mode();
-  display(*infos);
+  if (ac == 1)
+    textDisplay(*infos);
+  else if ((std::string) av[1] == "-g")
+    graphDisplay(*infos);
+  else
+    help_mode();
   delete infos;
   return (0);
 }

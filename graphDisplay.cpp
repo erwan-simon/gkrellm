@@ -5,7 +5,7 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sun Jan 22 02:30:51 2017 antoine
-// Last update Sun Jan 22 03:11:53 2017 antoine
+// Last update Sun Jan 22 03:35:27 2017 antoine
 //
 
 #include <iostream>
@@ -105,7 +105,7 @@ void    print_kernel(sf::RenderWindow *window, Infos const &infos)
   print_shape(window, 470, 50);
   print_title(window, "RAM :", 480);
   std::ostringstream ss;
-  ss << infos._core.getRam();
+  ss << infos._core.getRam()[0] << "G/" << infos._core.getRam()[1] << "G";
   std::string s(ss.str());
   print_text(window, s, 500);
 
