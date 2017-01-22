@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sun Jan 22 01:00:53 2017 erwan
-// Last update Sun Jan 22 02:02:32 2017 erwan
+// Last update Sun Jan 22 02:33:10 2017 erwan
 //
 
 #include <string>
@@ -54,6 +54,7 @@ void	init_Network(Infos &infos)
 
   while (std::getline(file, line))
     {
+      std::cout << line << std::endl;
       if ((a = line.find(":")) != -1)
 	{
 	  a++;
@@ -64,32 +65,30 @@ void	init_Network(Infos &infos)
 	      temp += line[a];
 	      a++;
 	    }
-	  // if (std::stoi(temp) > max)
-	  //   {
-	  //     infos._network.setUp(std::stoi(temp));
-	  //     while (i != 7)
-	  // 	{
-	  // 	  while (line[a] >= '0' && line[a] <= '9')
-	  // 	    {
-	  // 	      while (1)
-	  // 		std::cout << "salut" << std::endl;
-	  // 	      a++;
-	  // 	    }
-	  // 	  while (line[a] <= '0' && line[a] >= '9')
-	  // 	    a++;
-	  // 	  i++;
-	  // 	}
-	  //     temp.erase();
-	  //     while (line[a] < '0' && line[a] > '9')
-	  // 	{
-	  // 	  temp += line[a];
-	  // 	  a++;
-	  // 	}
-	  //     std::cout << temp << std::endl;
-	  //     infos._network.setDown(std::stoi(temp));
-	  //     break ;
-	  //   }
+	  if (std::stoi(temp) > max)
+	    {
+	      infos._network.setUp(stoi(temp));
+	      temp.erase();
+	      while (i != 7)
+		{
+		  while (line[a] == ' ')
+		    a++;
+		  while (line[a] != ' ')
+		    a++;
+		  i++;
+		}
+	      i = 0;
+	      while (line[a] == ' ')
+		a++;
+	      while (line[a] != ' ')
+		{
+		  temp += line[a];
+		  a++;
+		}
+	      infos._network.setDown(std::stoi(temp));
+	    }
 	}
+      temp.erase();
     }
   file.close();
 }  

@@ -9,6 +9,10 @@ void	updateInfos(Infos &infos);
 void	display(Infos &infos)
 {
   updateInfos(infos);
+  std::cout << "**************** NETWORK *******************" << std::endl;
+  std::cout << "Up : " << infos._network.getUp() << std::endl;
+  std::cout << "Down : " << infos._network.getDown() << std::endl << std::endl;
+
   std::cout << "**************** CORE *******************" << std::endl;
   std::cout << "CPUModel : " << infos._core.getCPUModel() << std::endl;
   std::cout << "coreNb : " << infos._core.getCoreNb() << std::endl;
@@ -28,7 +32,4 @@ void	display(Infos &infos)
   std::cout << "date : " << infos._user.getDate() << std::endl;
   std::cout << "Time : " << infos._user.getTime() << std::endl << std::endl;
 
-  std::cout << "**************** NETWORK *******************" << std::endl;
-  std::cout << "Up : " << infos._network.getUp() << std::endl;
-  std::cout << "Down : " << infos._network.getDown() << std::endl;
 }
