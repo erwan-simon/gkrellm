@@ -53,8 +53,8 @@ void	basicTemplate(Infos const &infos)
   mvprintw(6, yMax - 31, "Core number: ");
   mvprintw(8, yMax - 31, "Active tasks: ");
   mvprintw(10, yMax - 31, "Internet :");
-  mvprintw(11, yMax - 31, "Up :");
-  mvprintw(12, yMax - 31, "Down :");
+  mvprintw(12, yMax - 29, "Up :");
+  mvprintw(13, yMax - 29, "Down :");
   attroff(COLOR_PAIR(2));
 }
 
@@ -132,8 +132,8 @@ void	core(Infos const &infos)
   mvprintw(2, 33, "%s", infos._core.getCPUModel().c_str());
   mvprintw(6, yMax - 18, "%d", infos._core.getCoreNb());
   mvprintw(8, yMax - 17, "%d", infos._core.getNbTasks());
-  mvprintw(8, yMax - 17, "%dGb", infos._network.getUp());
-  mvprintw(8, yMax - 17, "%dGb", infos._network.getDown());
+  mvprintw(12, yMax - 20, "%db", infos._network.getUp());
+  mvprintw(13, yMax - 20, "%db", infos._network.getDown());
   attroff(COLOR_PAIR(0));
 }
 
