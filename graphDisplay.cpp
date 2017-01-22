@@ -5,7 +5,7 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sun Jan 22 02:30:51 2017 antoine
-// Last update Sun Jan 22 04:01:11 2017 antoine
+// Last update Sun Jan 22 04:08:06 2017 erwan
 //
 
 #include <iostream>
@@ -142,7 +142,7 @@ void	print_data(sf::RenderWindow *window, Infos const &infos)
 
 void    graphDisplay(Infos &infos)
 {
-  sf::RenderWindow window(sf::VideoMode(300, 760), "My GKrellm");
+  sf::RenderWindow window(sf::VideoMode(300, 780), "My GKrellm");
 
   while (window.isOpen())
     {
