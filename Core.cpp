@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sun Jan 22 03:55:29 2017 Pierre-Emmanuel Merlier
+// Last update Sun Jan 22 03:57:09 2017 Pierre-Emmanuel Merlier
 //
 
 #include <string>
@@ -329,13 +329,14 @@ void getCPUInfo(Infos & info)
 
 void getRamInfo(struct sysinfo sys, Infos &info)
 {
-  float total, free, use, buffer;
+  float total, free, use, buffer, shared;
   float	*ram = new float;
 
   total = (float)sys.totalram / (1024 * 1024 * 1024);
   free = (float)sys.freeram / (1024 * 1024 * 1024);
   buffer = (float)sys.bufferram / (1024 * 1024 * 1024);
-  use = total - free - buffer;
+  shared = (float)sys.sharedram / (1024 * 1024 * 1024);
+  use = total - free - buffer - shared;
   ram[0] = use;
   ram[1] = total;
   info._core.setRam(ram);
@@ -343,13 +344,13 @@ void getRamInfo(struct sysinfo sys, Infos &info)
 
 void getSwapInfo(struct sysinfo sys, Infos & info)
 {
-  float total, free, use, buffer;
+  float total, free, use;
   float	*swap = new float;
 
   total = (float)sys.totalswap / (1024 * 1024 * 1024);
   free = (float)sys.freeswap / (1024 * 1024 * 1024);
-  buffer = (float)sys.bufferram / (1024 * 1024 * 1024);
-  use = total - free - buffer;  swap[0] = use;
+  use = total - free;
+  swap[0] = use;
   swap[1] = total;
   info._core.setSwap(swap);
 }
