@@ -5,11 +5,13 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sun Jan 22 00:03:57 2017 erwan
+// Last update Sun Jan 22 02:44:34 2017 Pierre-Emmanuel Merlier
 //
 
 #include <string>
 #include <vector>
+#include <chrono>
+#include <thread>
 #include "Core.hpp"
 #include "Infos.hpp"
 
@@ -40,7 +42,7 @@ Core&	Core::operator=(Core const &other)
 /***** GETTER *****/
 std::string Core::getCPUModel() const			{return (this->_CPUModel);}
 int	Core::getCoreNb() const				{return (this->_coreNb);}
-long long	*Core::getCorePercent() const		{return (this->_corePercent);}
+float	*Core::getCorePercent() const			{return (this->_corePercent);}
 float	*Core::getRam() const				{return (this->_ram);}
 float	*Core::getSwap() const				{return (this->_swap);}
 int	Core::getNbTasks() const			{return (this->_nbTasks);}
@@ -49,7 +51,7 @@ float	*Core::getLoadAvg() const			{return (this->_loadAvg);}
 /***** SETTER *****/
 void	Core::setCPUModel(std::string model)		{this->_CPUModel = model;}
 void	Core::setCoreNb(int coreNb)			{this->_coreNb = coreNb;}
-void	Core::setCorePercent(long long *corePercent)	{this->_corePercent = corePercent;}
+void	Core::setCorePercent(float *corePercent)	{this->_corePercent = corePercent;}
 void	Core::setRam(float *ram)			{this->_ram = ram;}
 void	Core::setSwap(float *swap)			{this->_swap = swap;}
 void	Core::setNbTasks(int tasksNb)			{this->_nbTasks = tasksNb;}
@@ -63,7 +65,7 @@ void init_Core(Infos &info)
   getLoadAvgFromFile(info);
   getNbTasksFromFile(info);
   getCPUInfo(info);
-  // getCorePercentFromFile(info);
+  getCorePercentFromFile(info);
   struct sysinfo sys;
   if (!sysinfo(&sys))
     {
@@ -145,32 +147,61 @@ void  getNbTasksFromFile(Infos & info)
     }
 }
 
-void getCorePercentFromFile(Infos & info)
+#include <iostream>
+//CPUPercentage
+float getCPUIdle(std::string line)
 {
-  int i, j = 0, n = 0, jump = 0;
-  long mem_size;
-  std::string src = PATH + "stat";
-  std::string src2 = PATH + "cpuinfo";
-  std::string line, str, nb;
-  long long stock = 0;
-  long long ret[4] = {0, 0, 0, 0};
-  std::ifstream file(src.c_str(), std::ios::in);
-  std::ifstream file2(src2.c_str(), std::ios::in);
+  int k = 0;
+  unsigned int i = 0;
+  float idle = 0;
+  std::string nb;
 
-  if (file2)
+  while (i < line.length())
     {
-      while (getline(file2, line))
-	str += line;
-      nb = parsingCPU("cache size", "physical id", str);
-      str = "";
-      while (nb[j] != ' ')
-	str += nb[j++];
-      mem_size = std::stoi(str);
+      if (line[i] >= '0' && line[i] <= '9')
+	{
+	  while (line[i] >= '0' && line[i] <= '9')
+	    nb += line[i++];
+	  if (k == 3 | k == 4)
+	    idle += std::stof(nb);
+	  k++;
+	  nb = "";
+	}
+      i++;
     }
+  return idle;
+}
 
-  str = "";
-  line = "";
-  nb = "";
+float getCPUNonIdle(std::string line)
+{
+  int k = 0;
+  unsigned int i = 0;
+  float nonIdle = 0;
+  std::string nb;
+
+  while (i < line.length())
+    {
+      if (line[i] >= '0' && line[i] <= '9')
+	{
+	  while (line[i] >= '0' && line[i] <= '9')
+	    nb += line[i++];
+	  if (k != 3 && k != 4)
+	    nonIdle += std::stof(nb);
+	  nb = "";
+	  k++;
+	}
+      i++;
+    }
+  return nonIdle;
+}
+
+float *fillCPUIdle(std::string src)
+{
+  int i, jump = 0, li = 0;
+  float *ret = new float;
+  std::string line;
+
+  std::ifstream file(src.c_str(), std::ios::in);
   if (file)
     {
       while (getline(file, line))
@@ -178,24 +209,102 @@ void getCorePercentFromFile(Infos & info)
 	  i = line.find("cpu");
 	  if (i != -1 && jump != 0)
 	    {
-	      while (i < line.length())
+	      switch (li++)
 		{
-		  while (line[i] >= '0' && line[i] <= '9')
-		    nb += line[i++];
-		  i++;
+		case 0:
+		  ret[0] = getCPUIdle(line);
+		  break;
+		case 1:
+		  ret[1] = getCPUIdle(line);
+		  break;
+		case 2:
+		  ret[2] = getCPUIdle(line);
+		  break;
+		case 3:
+		  ret[3] = getCPUIdle(line);
+		  break;
 		}
-	      stock += std::stof(nb);
-	      ret[n++] = stock * 100 / (mem_size * 1024);
 	    }
 	  jump = 1;
-	  stock = 0;
-	  nb = "";
 	}
-      info._core.setCorePercent(ret);
     }
-  else
-    info._core.setCorePercent(ret);
+
+  file.close();
+  return (ret);
 }
+
+float *fillCPUNonIdle(std::string src)
+{
+  int i, jump = 0, li = 0;
+  float *ret = new float;
+  std::string line;
+
+  std::ifstream file(src.c_str(), std::ios::in);
+  if (file)
+    {
+      while (getline(file, line))
+	{
+	  i = line.find("cpu");
+	  if (i != -1 && jump != 0)
+	    {
+	      switch (li++)
+		{
+		case 0:
+		  ret[0] = getCPUNonIdle(line);
+	      break;
+		case 1:
+		  ret[1] = getCPUNonIdle(line);
+	      break;
+		case 2:
+		  ret[2] = getCPUNonIdle(line);
+		  break;
+		case 3:
+		  ret[3] = getCPUNonIdle(line);
+		  break;
+		}
+	    }
+	  jump = 1;
+	}
+    }
+
+  file.close();
+  return (ret);
+}
+
+void getCorePercentFromFile(Infos & info)
+{
+  std::string src = PATH + "stat";
+  float *ret = new float;
+  float *prevIdle, *idle;
+  float *prevNonIdle, *nonIdle;
+  float *prevTotal = new float;
+  float *total = new float;
+  float *totald = new float;
+  float *idled = new float;
+
+  prevIdle = fillCPUIdle(src);
+  prevNonIdle = fillCPUNonIdle(src);
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
+  idle = fillCPUIdle(src);
+  nonIdle = fillCPUNonIdle(src);
+
+  int i = 0;
+  while (i < 4)
+    {
+      prevTotal[i] = prevIdle[i] + prevNonIdle[i];
+      total[i] = idle[i] + nonIdle[i];
+
+      totald[i] = nonIdle[i] - prevNonIdle[i];
+      idled[i] = idle[i] - prevIdle[i];
+
+      ret[i] = (totald[i] / (totald[i] + idled[i])) * 100;
+      i++;
+    }
+  info._core.setCorePercent(ret);
+}
+//!CPU
 
 void getCPUInfo(Infos & info)
 {
