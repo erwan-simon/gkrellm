@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sun Jan 22 03:58:39 2017 Pierre-Emmanuel Merlier
+// Last update Sun Jan 22 04:53:45 2017 Pierre-Emmanuel Merlier
 //
 
 #include <string>
@@ -132,7 +132,6 @@ void  getNbTasksFromFile(Infos & info)
     }
 }
 
-#include <iostream>
 //CPUPercentage
 float getCPUIdle(std::string line)
 {
