@@ -5,7 +5,7 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sun Jan 22 02:30:51 2017 antoine
-// Last update Sun Jan 22 04:08:06 2017 erwan
+// Last update Sun Jan 22 04:33:50 2017 erwan
 //
 
 #include <iostream>
@@ -135,7 +135,7 @@ void	print_data(sf::RenderWindow *window, Infos const &infos)
   print_shape(window, 710, 50);
   print_title(window, "Internet :", 720);
   std::ostringstream ss;
-  ss << "Up : " <<infos._network.getUp() << "  |   Down : " << infos._network.getDown();
+  ss << "Up : " <<infos._network.getUp() << " Mb  |   Down : " << infos._network.getDown() << " Mb";
   std::string s(ss.str());
   print_text(window, s, 740);
 }
