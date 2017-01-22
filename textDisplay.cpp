@@ -65,7 +65,7 @@ void	gauge(Infos const &infos)
   int	i;
   int	a;
   getmaxyx(stdscr, xMax, yMax);
-  unsigned int	totalLength = yMax - 31 - 35;
+  int	totalLength = yMax - 31 - 35;
   int	length;
   float	*temp;
 
@@ -97,8 +97,8 @@ void	gauge(Infos const &infos)
   	mvprintw(4 + (a * 2), i + 31, " ");
       attroff(COLOR_PAIR(3));
       attron(COLOR_PAIR(0));
-      for (unsigned int j = j; j < totalLength; j++)
-	mvprintw(4 + (a * 2), j + 31, " ");
+      for (i = i; i < totalLength; i++)
+	mvprintw(4 + (a * 2), i + 31, " ");
       attroff(COLOR_PAIR(0));
       mvprintw(5 + (a * 2), yMax - 38, "%.0f%%", temp[a]);
     }
