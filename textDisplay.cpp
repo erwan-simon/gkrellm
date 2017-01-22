@@ -132,6 +132,8 @@ void	core(Infos const &infos)
   mvprintw(2, 33, "%s", infos._core.getCPUModel().c_str());
   mvprintw(6, yMax - 18, "%d", infos._core.getCoreNb());
   mvprintw(8, yMax - 17, "%d", infos._core.getNbTasks());
+  mvprintw(8, yMax - 17, "%dGb", infos._network.getUp());
+  mvprintw(8, yMax - 17, "%dGb", infos._network.getDown());
   attroff(COLOR_PAIR(0));
 }
 
