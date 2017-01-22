@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sun Jan 22 03:54:33 2017 Pierre-Emmanuel Merlier
+// Last update Sun Jan 22 03:55:29 2017 Pierre-Emmanuel Merlier
 //
 
 #include <string>
@@ -343,7 +343,7 @@ void getRamInfo(struct sysinfo sys, Infos &info)
 
 void getSwapInfo(struct sysinfo sys, Infos & info)
 {
-  float total, free, use;
+  float total, free, use, buffer;
   float	*swap = new float;
 
   total = (float)sys.totalswap / (1024 * 1024 * 1024);
