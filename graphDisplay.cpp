@@ -5,7 +5,7 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sun Jan 22 02:30:51 2017 antoine
-// Last update Sun Jan 22 04:33:50 2017 erwan
+// Last update Sun Jan 22 07:21:30 2017 antoine
 //
 
 #include <iostream>
@@ -40,7 +40,6 @@ void    print_title(sf::RenderWindow *window, std::string _text, int _x)
   text.setString(_text);
   text.setCharacterSize(14);
   text.setColor(sf::Color::Red);
-  // text.setPosition(12, _x);
   sf::FloatRect textRect = text.getLocalBounds();
   text.setOrigin(textRect.left + textRect.width/2.0f,
 		 textRect.top  + textRect.height/2.0f);
@@ -57,11 +56,57 @@ void    print_text(sf::RenderWindow *window, std::string _text, int _x)
   text.setString(_text);
   text.setCharacterSize(12);
   text.setColor(sf::Color::Black);
-  // text.setPosition(12, _x);
   sf::FloatRect textRect = text.getLocalBounds();
   text.setOrigin(textRect.left + textRect.width/2.0f,
 		 textRect.top  + textRect.height/2.0f);
   text.setPosition(sf::Vector2f(300/2.0f, _x));
+  window->draw(text);
+}
+
+void    print_shape2(sf::RenderWindow *window, int _x, int _y, int _sizex, int _sizey, int value)
+{
+  sf::RectangleShape rectangle;
+
+  rectangle.setSize(sf::Vector2f(_sizey, _sizex));
+  rectangle.setOutlineColor(sf::Color::Black);
+  if (value == 0)
+    rectangle.setFillColor(sf::Color::White);
+  else if (value <= 10 && value != 0)
+    rectangle.setFillColor(sf::Color::Blue);
+  else if (value <= 25 && value > 10)
+    rectangle.setFillColor(sf::Color::Green);
+  else if (value < 50 && value > 25)
+    rectangle.setFillColor(sf::Color::Yellow);
+  else
+    rectangle.setFillColor(sf::Color::Red);
+  rectangle.setOutlineThickness(3);
+  rectangle.setPosition(_y, _x);
+  window->draw(rectangle);
+}
+
+void    print_title2(sf::RenderWindow *window, std::string _text, int _x, int _y)
+{
+  sf::Font font;
+  font.loadFromFile("arial.ttf");
+  sf::Text text;
+  text.setFont(font);
+  text.setString(_text);
+  text.setCharacterSize(14);
+  text.setColor(sf::Color::Red);
+  text.setPosition(_y, _x);
+  window->draw(text);
+}
+
+void    print_text2(sf::RenderWindow *window, std::string _text, int _x, int _y)
+{
+  sf::Font font;
+  font.loadFromFile("arial.ttf");
+  sf::Text text;
+  text.setFont(font);
+  text.setString(_text);
+  text.setCharacterSize(12);
+  text.setColor(sf::Color::Black);
+  text.setPosition(_y, _x);
   window->draw(text);
 }
 
@@ -135,14 +180,75 @@ void	print_data(sf::RenderWindow *window, Infos const &infos)
   print_shape(window, 710, 50);
   print_title(window, "Internet :", 720);
   std::ostringstream ss;
-  ss << "Up : " <<infos._network.getUp() << " Mb  |   Down : " << infos._network.getDown() << " Mb";
+  ss << "Up : " <<infos._network.getUp() << "  |   Down : " << infos._network.getDown();
   std::string s(ss.str());
   print_text(window, s, 740);
 }
 
+void	print_graphCPU(sf::RenderWindow *window, Infos const &infos)
+{
+  float	val;
+  int	place = 0;
+  
+  print_shape2(window, 215, 300, 39, 400, 0);
+  val = (((infos._core.getCorePercent()[0]) + (infos._core.getCorePercent()[1]) +
+	  (infos._core.getCorePercent()[2]) + (infos._core.getCorePercent()[3])) / 4);
+  int size = int(val + 0.5);
+  size *= 4;
+  print_shape2(window, 216, 300 , 37 , size, size / 4);
+}
+
+void	print_graphCPU1(sf::RenderWindow *window, Infos const &infos)
+{
+  float	val;
+  int	place = 0;
+  
+  print_shape2(window, 261, 300, 39, 400, 0);
+  val = infos._core.getCorePercent()[0];
+  int size = int(val + 0.5);
+  size *= 4;
+  print_shape2(window, 262, 300 , 37 , size, size / 4);
+}
+
+void	print_graphCPU2(sf::RenderWindow *window, Infos const &infos)
+{
+  float	val;
+  int	place = 0;
+  
+  print_shape2(window, 306, 300, 39, 400, 0);
+  val = infos._core.getCorePercent()[1];
+  int size = int(val + 0.5);
+  size *= 4;
+  print_shape2(window, 307, 300 , 37 , size, size / 4);
+}
+
+void	print_graphCPU3(sf::RenderWindow *window, Infos const &infos)
+{
+  float	val;
+  int	place = 0;
+  
+  print_shape2(window, 351, 300, 39, 400, 0);
+  val = infos._core.getCorePercent()[2];
+  int size = int(val + 0.5);
+  size *= 4;
+  print_shape2(window, 352, 300 , 37 , size, size / 4);
+}
+
+void	print_graphCPU4(sf::RenderWindow *window, Infos const &infos)
+{
+  float	val;
+  int	place = 0;
+  
+  print_shape2(window, 396, 300, 39, 400, 0);
+  val = infos._core.getCorePercent()[3];
+  int size = int(val + 0.5);
+  size *= 4;
+  print_shape2(window, 397, 300 , 37 , size, size / 4);
+}
+
 void    graphDisplay(Infos &infos)
 {
-  sf::RenderWindow window(sf::VideoMode(300, 780), "My GKrellm");
+  sf::RenderWindow window(sf::VideoMode(900, 800), "My GKrellm");
 
   while (window.isOpen())
     {
@@ -163,6 +269,11 @@ void    graphDisplay(Infos &infos)
       print_cpu(&window, infos);
       print_kernel(&window, infos);
       print_data(&window, infos);
+      print_graphCPU(&window, infos);
+      print_graphCPU1(&window, infos);
+      print_graphCPU2(&window, infos);
+      print_graphCPU3(&window, infos);
+      print_graphCPU4(&window, infos);
       window.display();
     }
 }
