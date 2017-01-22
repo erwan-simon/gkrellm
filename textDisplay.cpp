@@ -87,11 +87,11 @@ void	gauge(Infos const &infos)
   mvprintw(15, yMax - 46, "%.2fG/%.2fG", temp[0], temp[1]);
 
   srand(time(NULL));
-  // t = infos._core.getCorePercent();
+  temp = infos._core.getCorePercent();
   for (a = 0; a < infos._core.getCoreNb(); a++)
     {
       attron(COLOR_PAIR(3));
-      temp[a] = rand() % 100;
+      // temp[a] = rand() % 100;
       length = (int) ((temp[a] * totalLength) / 100);
       for (i = 0; i < length; i++)
   	mvprintw(4 + (a * 2), i + 31, " ");
