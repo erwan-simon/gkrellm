@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sun Jan 22 03:46:53 2017 Pierre-Emmanuel Merlier
+// Last update Sun Jan 22 03:48:17 2017 Pierre-Emmanuel Merlier
 //
 
 #include <string>
@@ -313,7 +313,7 @@ void getCPUInfo(Infos & info)
     {
       while (getline(file, line))
 	{
-	  if (line.find("mode name") != -1)
+	  if (line.find("model name") != -1)
 	    info._core.setCPUModel(parsingCPU(line));
 	  else if (line.find("processor") != -1)
 	    info._core.setCoreNb(info._core.getCoreNb() + 1);
