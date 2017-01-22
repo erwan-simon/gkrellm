@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Sat Jan 21 12:29:09 2017 erwan
-// Last update Sat Jan 21 19:22:55 2017 Pierre-Emmanuel Merlier
+// Last update Sun Jan 22 02:00:43 2017 erwan
 //
 
 #ifndef INFOS_HPP_
@@ -14,6 +14,7 @@
 #include <string>
 #include "Core.hpp"
 #include "User.hpp"
+#include "Network.hpp"
 
 class	Infos
 {
@@ -25,6 +26,7 @@ public:
 public:
   Core		_core;
   User		_user;
+  Network	_network;
 };
 
 void		init_User(Infos &_info);
@@ -41,4 +43,9 @@ void		getCPUInfo(Infos &);
 void		getRamInfo(struct sysinfo, Infos &);
 void		getSwapInfo(struct sysinfo, Infos &);
 std::string	parsingCPU(const std::string, const std::string, const std::string);
+
+void		init_Network(Infos &infos);
+
+void		display(Infos &infos);
+
 #endif

@@ -52,6 +52,9 @@ void	basicTemplate(Infos const &infos)
   mvprintw(4, yMax - 31, "Kernel: ");
   mvprintw(6, yMax - 31, "Core number: ");
   mvprintw(8, yMax - 31, "Active tasks: ");
+  mvprintw(10, yMax - 31, "Internet :");
+  mvprintw(11, yMax - 31, "Up :");
+  mvprintw(12, yMax - 31, "Down :");
   attroff(COLOR_PAIR(2));
 }
 

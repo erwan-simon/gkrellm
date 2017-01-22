@@ -5,7 +5,7 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sat Jan 21 19:53:10 2017 antoine
-// Last update Sun Jan 22 00:49:50 2017 erwan
+// Last update Sun Jan 22 02:02:01 2017 erwan
 //
 
 #include <iostream>
@@ -17,6 +17,7 @@ void    updateInfos(Infos &infos)
 {
   init_User(infos);
   init_Core(infos);
+  init_Network(infos);
   infos._core.setCoreNb(4);
 }
 
@@ -53,13 +54,14 @@ int		main(int ac, char ** av, char **env)
   std::string	user_name = my_getenv(env);
 
   infos->_user.setUserName(user_name);
-  if (ac == 1)
-    textDisplay(*infos);
-  else if ((std::string) av[1] == "-g")
-    std::cout << "graphic" << std::endl;
-      //   graphicDisplay(*infos);
-    else
-      help_mode();
+  // if (ac == 1)
+  //   textDisplay(*infos);
+  // else if ((std::string) av[1] == "-g")
+  //   std::cout << "graphic" << std::endl;
+  //     //   graphicDisplay(*infos);
+  //   else
+  //     help_mode();
+  display(*infos);
   delete infos;
   return (0);
 }
