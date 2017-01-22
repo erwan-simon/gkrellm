@@ -5,7 +5,7 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sun Jan 22 02:30:51 2017 antoine
-// Last update Sun Jan 22 07:04:32 2017 Pierre-Emmanuel Merlier
+// Last update Sun Jan 22 09:03:31 2017 antoine
 //
 
 #include <iostream>
@@ -91,8 +91,9 @@ void    print_title2(sf::RenderWindow *window, std::string _text, int _x, int _y
   sf::Text text;
   text.setFont(font);
   text.setString(_text);
-  text.setCharacterSize(14);
-  text.setColor(sf::Color::Red);
+  text.setCharacterSize(25);
+  text.setColor(sf::Color::Black);
+  text.setStyle(sf::Text::Bold | sf::Text::Underlined);
   text.setPosition(_y, _x);
   window->draw(text);
 }
@@ -104,8 +105,9 @@ void    print_text2(sf::RenderWindow *window, std::string _text, int _x, int _y)
   sf::Text text;
   text.setFont(font);
   text.setString(_text);
-  text.setCharacterSize(12);
-  text.setColor(sf::Color::Black);
+  text.setCharacterSize(65);
+  text.setColor(sf::Color::Red);
+  text.setStyle(sf::Text::Bold | sf::Text::Underlined);
   text.setPosition(_y, _x);
   window->draw(text);
 }
@@ -241,16 +243,14 @@ void	print_graphCPU4(sf::RenderWindow *window, Infos const &infos)
   print_shape2(window, 397, 300 , 37 , size, size / 4);
 }
 
-void	print_asciiname(sf::RenderWindow *window)
+void	print_name(sf::RenderWindow *window)
 {
-  std::ifstream t("name.txt");
-  std::string str((std::istreambuf_iterator<char>(t)),
-		  std::istreambuf_iterator<char>());
-  print_text2(window, str, 600, 600);
+  print_text2(window, "MY GKrellm", 45, 320);
 }
+
 void    graphDisplay(Infos &infos)
 {
-  sf::RenderWindow window(sf::VideoMode(900, 800), "My GKrellm");
+  sf::RenderWindow window(sf::VideoMode(750, 700), "My GKrellm");
 
   while (window.isOpen())
     {
@@ -276,7 +276,7 @@ void    graphDisplay(Infos &infos)
       print_graphCPU2(&window, infos);
       print_graphCPU3(&window, infos);
       print_graphCPU4(&window, infos);
-      print_asciiname(&window);
+      print_name(&window);
       
       window.display();
     }
