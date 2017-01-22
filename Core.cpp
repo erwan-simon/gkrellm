@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 //
 // Started on  Sat Jan 21 14:06:57 2017 erwan
-// Last update Sun Jan 22 03:48:17 2017 Pierre-Emmanuel Merlier
+// Last update Sun Jan 22 03:49:25 2017 Pierre-Emmanuel Merlier
 //
 
 #include <string>
@@ -309,6 +309,7 @@ void getCPUInfo(Infos & info)
   std::string src = PATH + "cpuinfo";
   std::string str, line;
   std::ifstream file(src.c_str(), std::ios::in);
+  info._core.setCoreNb(0);
   if (file)
     {
       while (getline(file, line))
