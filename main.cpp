@@ -5,13 +5,14 @@
 // Login   <antoine.roche@epitech.eu>
 // 
 // Started on  Sat Jan 21 19:53:10 2017 antoine
-// Last update Sun Jan 22 02:02:01 2017 erwan
+// Last update Sun Jan 22 03:01:17 2017 antoine
 //
 
 #include <iostream>
 
 #include "Infos.hpp"
 #include "textDisplay.hpp"
+#include "graphDisplay.hpp"
 
 void    updateInfos(Infos &infos)
 {
@@ -54,6 +55,7 @@ int		main(int ac, char ** av, char **env)
   std::string	user_name = my_getenv(env);
 
   infos->_user.setUserName(user_name);
+  graphDisplay(*infos);
   // if (ac == 1)
   //   textDisplay(*infos);
   // else if ((std::string) av[1] == "-g")
