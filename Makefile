@@ -5,11 +5,12 @@
 ## Login   <pe.merlier@epitech.net>
 ## 
 ## Started on  Sun Jan 22 04:43:15 2017 Pierre-Emmanuel Merlier
-## Last update Sun Jan 22 07:14:07 2017 Pierre-Emmanuel Merlier
+## Last update Sun Jan 22 09:31:17 2017 antoine
 ##
 
 SRC=	Core.cpp\
 	graphDisplay.cpp\
+	graphDisplay2.cpp\
 	Infos.cpp\
 	lineDisplay.cpp\
 	main.cpp\
