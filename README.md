@@ -29,6 +29,6 @@ Navigate to the root of the repository from your Terminal and run `make` to buil
 
 ## Authors
 
-* **Erwan Simon** - *GladToBeInsane*
-* **Antoine Roche** - *Kayou*
-* **Pierre-Emmanuel Merlier** - *P-E*
+* **Erwan Simon** ([GitHub](https://github.com/erwan-simon) / [LinkedIn](https://www.linkedin.com/in/erwan-simon/))
+* **Antoine Roche** ([GitHub](https://github.com/Antoine-Roche))
+* **Pierre-Emmanuel Merlier**
