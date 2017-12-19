@@ -13,6 +13,20 @@ C++ monitoring program using ncurses or SFML library.
 
 Navigate to the root of the repository from your Terminal and run `make` to build the `my_gkrellm` executable file.
 
+## Execute
+
+- Execute with NCurses
+
+```
+./my_gkrellm
+```
+
+- Execute with SFML
+
+```
+./my_gkrellm -g
+```
+
 ## Authors
 
 * **Erwan Simon** - *GladToBeInsane*
