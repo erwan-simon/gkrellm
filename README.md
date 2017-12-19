@@ -6,7 +6,7 @@ C++ monitoring program using ncurses or SFML library.
 
  - [Make](https://www.gnu.org/software/make/)
  - [G++](https://gcc.gnu.org/)
- - [ncurses](https://www.gnu.org/software/ncurses/) library
+ - [ncurses](https://www.gnu.org/software/ncurses/)
  - [SFML](https://www.sfml-dev.org/)
 
 ## Compilation
